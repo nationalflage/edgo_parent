@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="com.hyjx.business.ouyq">
+    <typeAlias alias="ouyqmodel" type="com.hyjx.business.ouyq.OuyqModel"/>
+    <sql id="ouyqCondition">
+        <isNotEmpty property="name">
+           /*  and NAME like '%$name$%'*/
+            and instr(NAME,#name#)>0
+        </isNotEmpty>
+        <isNotEmpty property="sex">
+        /*  and SEX like '%$sex$%'*/
+            and instr(SEX,#sex#)>0
+        </isNotEmpty>
+        <isNotEmpty property="age">
+             /*and AGE like '%$age$%'*/
+            and instr(AGE,#age#)>0
+        </isNotEmpty>
+        <isNotEmpty property="birthday">
+            /* and BIRTHDAY like '%$birthday$%'*/
+            and instr(BIRTHDAY,#birthday#)>0
+        </isNotEmpty>
+        <isNotEmpty property="csdsheng">
+           /*  and CSDSHENG like '%$csdsheng$%'*/
+            and instr(CSDSHENG,#csdsheng#)>0
+        </isNotEmpty>
+        <isNotEmpty property="csdshi">
+           /* and CSDSHI like '%$csdshi$%'*/
+            and instr(CSDSHI,#csdshi#)>0
+        </isNotEmpty>
+        <isNotEmpty property="csdxian">
+           /* and CSDXIAN like '%$csdxian$%'*/
+            and instr(CSDXIAN,#csdxian#)>0
+        </isNotEmpty>
+        <isNotEmpty property="csdjdmph">
+             /*and CSDJDMPH like '%$csdjdmph$%'*/
+            and instr(CSDJDMPH,#csdjdmph#)>0
+        </isNotEmpty>
+        <isNotEmpty property="bmmc">
+            /* and BMMC like '%$bmmc$%'*/
+            and instr(BMMC,#bmmc#)>0
+        </isNotEmpty>
+        <isNotEmpty property="ah">
+            /* and AH like '%$ah$%'*/
+            and instr(AH,#ah#)>0
+        </isNotEmpty>
+        <isNotEmpty property="sfyx">
+            /*and SFYX like '%$sfyx$%'*/
+            and instr(SFYX,#sfyx#)>0
+        </isNotEmpty>
+        <isNotEmpty property="cjrxm">
+           /* and CJRXM like '%$cjrxm$%'*/
+            and instr(CJRXM,#cjrxm#)>0
+        </isNotEmpty>
+        <isNotEmpty property="cjrbmmc">
+             /*and CJRBMMC like '%$cjrbmmc$%'*/
+            and instr(CJRBMMC,#cjrbmmc#)>0
+        </isNotEmpty>
+        <isNotEmpty property="scly">
+            /*and CJRBMMC like '%$cjrbmmc$%'*/
+            and instr(SCLY,#scly#)>0
+        </isNotEmpty>
+    </sql>
+    <select id="queryList" parameterClass="ouyqmodel" resultClass="ouyqmodel">
+        select
+        ID as id,
+        NAME as name,
+        SEX as sex,
+        AGE as age,
+        BIRTHDAY as birthday,
+        CSDSHENG as csdsheng,
+        CSDSHI as csdshi,
+        CSDXIAN as csdxian,
+        CSDJDMPH as csdjdmph,
+        BMID as bmid,
+        BMMC as bmmc,
+        AH as ah,
+        SFYX as sfyx,
+        CJRID as cjrid,
+        CJRXM as cjrxm,
+        CJRBMID as cjrbmid,
+        CJRBMMC as cjrbmmc,
+        SCLY as scly
+        from
+        OUYQ_STUDY where 1=1
+        <include refid="ouyqCondition" />
+    </select>
+    <select id="queryCount" parameterClass="ouyqmodel" resultClass="java.lang.String">
+        select
+        count(1) as id
+        from
+        OUYQ_STUDY  where 1=1
+        <include refid="ouyqCondition" />
+    </select>
+    <insert id="insert" parameterClass="Ouyqmodel">
+		insert into OUYQ_STUDY  (
+			ID,
+			NAME,
+			SEX,
+			AGE,
+			BIRTHDAY,
+			CSDSHENG,
+			CSDSHI,
+			CSDXIAN,
+			CSDJDMPH,
+			BMID,
+			BMMC,
+			AH,
+			SFYX,
+			CJRID,
+			CJRXM,
+			CJRBMID,
+			CJRBMMC,
+			SCLY
+		)values(
+			#id#,
+			#name#,
+			#sex#,
+			#age#,
+			#birthday#,
+			#csdsheng#,
+			#csdshi#,
+			#csdxian#,
+			#csdjdmph#,
+			#bmid#,
+			#bmmc#,
+			#ah#,
+			#sfyx#,
+			#cjrid#,
+			#cjrxm#,
+			#cjrbmid#,
+			#cjrbmmc#,
+			#scly#
+		)
+	</insert>
+    <update id="update" parameterClass="ouyqmodel">
+		update OUYQ_STUDY
+		set
+			ID = #id#,
+			NAME = #name#,
+			SEX = #sex#,
+			AGE = #age#,
+			BIRTHDAY = #birthday#,
+			CSDSHENG = #csdsheng#,
+			CSDSHI = #csdshi#,
+			CSDXIAN = #csdxian#,
+			CSDJDMPH = #csdjdmph#,
+			BMID = #bmid#,
+			BMMC = #bmmc#,
+			AH = #ah#,
+			SFYX = #sfyx#,
+			CJRID = #cjrid#,
+			CJRXM = #cjrxm#,
+			CJRBMID = #cjrbmid#,
+			CJRBMMC = #cjrbmmc#,
+			SCLY = #scly#
+
+		where 1=1
+				and ID = #id#
+	</update>
+    <select id="getInfoById" parameterClass="ouyqmodel" resultClass="ouyqmodel">
+		select
+			ID as id,
+			NAME as name,
+			SEX as sex,
+			AGE as age,
+			BIRTHDAY as birthday,
+			CSDSHENG as csdsheng,
+			CSDSHI as csdshi,
+			CSDXIAN as csdxian,
+			CSDJDMPH as csdjdmph,
+			BMID as bmid,
+			BMMC as bmmc,
+			AH as ah,
+			SFYX as sfyx,
+			CJRID as cjrid,
+			CJRXM as cjrxm,
+			CJRBMID as cjrbmid,
+			CJRBMMC as cjrbmmc,
+			SCLY as scly
+		from
+			OUYQ_STUDY
+		where 1=1
+            and ID = #id#
+	</select>
+    <delete id="delete" parameterClass="ouyqmodel">
+		delete from OUYQ_STUDY
+		where 1=1
+            and ID = #id#
+	</delete>
+
+</sqlMap>

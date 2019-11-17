@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="com.hyjx.business.mengt">
+    <typeAlias alias="MengtModel" type="com.hyjx.business.mengt.MengtModel"/>
+
+    <sql id="QueryCondition">
+        <isNotEmpty property="name">
+            and NAME like '%$name$%'
+        </isNotEmpty>
+        <isNotEmpty property="sex">
+            and SEX like '%$sex$%'
+        </isNotEmpty>
+        <isNotEmpty property="age">
+            and AGE like '%$age$%'
+        </isNotEmpty>
+        <isNotEmpty property="birthday">
+            and BIRTHDAY like '%$birthday$%'
+        </isNotEmpty>
+        <isNotEmpty property="csdsheng">
+            and CSDSHENG like '%$csdsheng$%'
+        </isNotEmpty>
+        <isNotEmpty property="csdshi">
+            and CSDSHI like '%$csdshi$%'
+        </isNotEmpty>
+        <isNotEmpty property="csdxian">
+            and CSDXIAN like '%$csdxian$%'
+        </isNotEmpty>
+        <isNotEmpty property="csdjdmph">
+            and CSDJDMPH like '%$csdjdmph$%'
+        </isNotEmpty>
+        <isNotEmpty property="bmmc">
+            and BMMC like '%$bmmc$%'
+        </isNotEmpty>
+        <isNotEmpty property="ah">
+            and AH like '%$ah$%'
+        </isNotEmpty>
+        <isNotEmpty property="sfyx">
+            and SFYX like '%$sfyx$%'
+        </isNotEmpty>
+        <isNotEmpty property="cjrxm">
+            and CJRXM like '%$cjrxm$%'
+        </isNotEmpty>
+        <isNotEmpty property="cjrbmmc">
+            and CJRBMMC like '%$cjrbmmc$%'
+        </isNotEmpty>
+    </sql>
+
+    <select id="queryList" parameterClass="MengtModel" resultClass="MengtModel">
+        select
+        ID as id,
+        NAME as name,
+        SEX as sex,
+        AGE as age,
+        BIRTHDAY as birthday,
+        CSDSHENG as csdsheng,
+        CSDSHI as csdshi,
+        CSDXIAN as csdxian,
+        CSDJDMPH as csdjdmph,
+        BMID as bmid,
+        BMMC as bmmc,
+        AH as ah,
+        SFYX as sfyx,
+        CJRID as cjrid,
+        CJRXM as cjrxm,
+        CJRBMID as cjrbmid,
+        CJRBMMC as cjrbmmc,
+		SCLY as scly,
+		ZSC as zsc
+        from
+        MENGT_STUDY where 1=1
+        <include refid="QueryCondition" />
+    </select>
+
+    <!--    获取ID数量-->
+    <select id="queryCount" parameterClass="MengtModel" resultClass="java.lang.String">
+        select
+        count(1) as id
+        from
+        MENGT_STUDY  where 1=1
+        <include refid="QueryCondition" />
+    </select>
+    <!--    插入-->
+    <insert id="insert" parameterClass="MengtModel">
+		insert into MENGT_STUDY  (
+			ID,
+			NAME,
+			SEX,
+			AGE,
+			BIRTHDAY,
+			CSDSHENG,
+			CSDSHI,
+			CSDXIAN,
+			CSDJDMPH,
+			BMID,
+			BMMC,
+			AH,
+			SFYX,
+			CJRID,
+			CJRXM,
+			CJRBMID,
+			CJRBMMC,
+			SCLY,
+			ZSC
+		)values(
+			#id#,
+			#name#,
+			#sex#,
+			#age#,
+			#birthday#,
+			#csdsheng#,
+			#csdshi#,
+			#csdxian#,
+			#csdjdmph#,
+			#bmid#,
+			#bmmc#,
+			#ah#,
+			#sfyx#,
+			#cjrid#,
+			#cjrxm#,
+			#cjrbmid#,
+			#cjrbmmc#,
+			#scly#,
+			#zsc#
+		)
+	</insert>
+
+    <!--    获取修改表-->
+    <select id="getInfoById" parameterClass="mengtmodel" resultClass="mengtmodel">
+		select
+			id as id,
+			name as name,
+			sex as sex,
+			age as age,
+			birthday as birthday,
+			csdsheng as csdsheng,
+			csdshi as csdshi,
+			csdxian as csdxian,
+			csdjdmph as csdjdmph,
+			bmid as bmid,
+			bmmc as bmmc,
+			ah as ah,
+			sfyx as sfyx,
+			cjrid as cjrid,
+			cjrxm as cjrxm,
+			cjrbmid as cjrbmid,
+			cjrbmmc as cjrbmmc,
+			scly as scly,
+			zsc as zsc
+		from
+			MENGT_STUDY
+		where 1=1
+            and ID = #id#
+	</select>
+
+    <update id="update" parameterClass="mengtmodel">
+		update MENGT_STUDY
+		set
+			id = #id#,
+			name = #name#,
+			sex = #sex#,
+			age = #age#,
+			birthday = #birthday#,
+			csdsheng = #csdsheng#,
+			csdshi = #csdshi#,
+			csdxian = #csdxian#,
+			csdjdmph = #csdjdmph#,
+			bmid = #bmid#,
+			bmmc = #bmmc#,
+			ah = #ah#,
+			sfyx = #sfyx#,
+			cjrid = #cjrid#,
+			cjrxm = #cjrxm#,
+			cjrbmid = #cjrbmid#,
+			cjrbmmc = #cjrbmmc#,
+			scly = #scly#,
+
+            zsc = #zsc#
+		where 1=1
+				and ID = #id#
+	</update>
+
+	<!-- 删除-->
+	<delete id="delete" parameterClass="mengtmodel">
+		delete from MENGT_STUDY
+		where 1=1
+            and ID = #id#
+	</delete>
+
+</sqlMap>

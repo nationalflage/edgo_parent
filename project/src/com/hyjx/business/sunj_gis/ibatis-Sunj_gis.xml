@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="com.hyjx.business.sunj_gis">
+    <typeAlias alias="sunj_gismodel" type="com.hyjx.business.sunj_gis.Sunj_gisModel"/>
+    <typeAlias alias="sunj_gismodel2" type="com.hyjx.business.sunj_gis.Sunj_gisModel2"/>
+    <typeAlias alias="sunj_gismodel3" type="com.hyjx.business.sunj_gis.Sunj_gisModel3"/>
+    <sql id="sunj_gisCondition">
+        <isNotEmpty property="name">
+            and NAME like '%$name$%'
+        </isNotEmpty>
+        <isNotEmpty property="boundary">
+            and BOUNDARY like '%$boundary$%'
+        </isNotEmpty>
+        <isNotEmpty property="datetime">
+            and DATETIME like '%$datetime$%'
+        </isNotEmpty>
+        <isNotEmpty property="type">
+            and TYPE like '%$type$%'
+        </isNotEmpty>
+        <isNotEmpty property="innerBoundary">
+            and INNER_BOUNDARY like '%$innerBoundary$%'
+        </isNotEmpty>
+        <isNotEmpty property="centerLng">
+            and CENTER_LNG like '%$centerLng$%'
+        </isNotEmpty>
+        <isNotEmpty property="centerLat">
+            and CENTER_LAT like '%$centerLat$%'
+        </isNotEmpty>
+        <isNotEmpty property="airgeion">
+            and AIRGEION like '%$airgeion$%'
+        </isNotEmpty>
+        <isNotEmpty property="airmc">
+            and AIRMC like '%$airmc$%'
+        </isNotEmpty>
+        <isNotEmpty property="town">
+            and TOWN like '%$town$%'
+        </isNotEmpty>
+        <isNotEmpty property="townmc">
+            and TOWNMC like '%$townmc$%'
+        </isNotEmpty>
+        <isNotEmpty property="lng">
+            and LNG like '%$lng$%'
+        </isNotEmpty>
+        <isNotEmpty property="lat">
+            and LAT like '%$lat$%'
+        </isNotEmpty>
+        <isNotEmpty property="business">
+            and BUSINESS like '%$business$%'
+        </isNotEmpty>
+    </sql>
+    <select id="queryArea" resultClass="sunj_gismodel" parameterClass="sunj_gismodel">
+        select
+			ID as id,
+			MAINID as mainid,
+			PID as pid,
+			NAME as name,
+			BOUNDARY as boundary,
+			DATETIME as datetime,
+			TYPE as type,
+			INNER_BOUNDARY as innerBoundary,
+			CENTER_LNG as centerLng,
+			CENTER_LAT as centerLat,
+			AIRGEION as airgeion,
+			AIRMC as airmc,
+			TOWN as town,
+			TOWNMC as townmc,
+			LNG as lng,
+			LAT as lat,
+			BUSINESS as business
+		from
+			GIS_BOUND_DATA where 1=1
+        <include refid="sunj_gisCondition" />
+    </select>
+    <select id="queryCount" parameterClass="sunj_gismodel" resultClass="java.lang.String">
+        select
+        count(1) as id
+        from
+        GIS_BOUND_DATA  where 1=1
+        <include refid="sunj_gisCondition" />
+    </select>
+    <select id="queryList1" resultClass="Sunj_gisModel">
+        ID as id,
+			MAINID as mainid,
+			PID as pid,
+			NAME as name,
+			BOUNDARY as boundary,
+			DATETIME as datetime,
+			TYPE as type,
+			INNER_BOUNDARY as innerBoundary,
+			CENTER_LNG as centerLng,
+			CENTER_LAT as centerLat,
+			AIRGEION as airgeion,
+			AIRMC as airmc,
+			TOWN as town,
+			TOWNMC as townmc,
+			LNG as lng,
+			LAT as lat,
+			BUSINESS as business
+		from
+            GIS_BOUND_DATA where 1=1 and TYPE = '2'
+    </select>
+    <select id="queryList2" resultClass="Sunj_gisModel2">
+        select entname,uniscid,dom,lat,lng from ent_info  where rownum &lt; 1001  and uniscid is not null
+    </select>
+    <select id="queryList3" resultClass="Sunj_gisModel3">
+		select count(1) as num,lat,lng from ent_info where lat is not null and lng is not null group by lat,lng
+	</select>
+</sqlMap>

@@ -1,0 +1,46 @@
+ *{margin:0;padding:0;} 
+a{text-decoration:none;} 
+.btn_addPic{ 
+display: block; 
+position: relative; 
+width: 80px; 
+height: 33px; 
+overflow: hidden; 
+border: 1px solid #EBEBEB; 
+background: none repeat scroll 0 0 #F3F3F3; 
+color: #999999; 
+cursor: pointer; 
+text-align: center; 
+line-height:33px;
+margin:0 auto;
+}
+.btn_addPic.tianka{
+	margin-left:20px;
+}
+.btn_addPic span{display: block;line-height: 33px;} 
+.btn_addPic em { 
+background:url(../image/picture.png) 0 0; 
+display: inline-block; 
+width: 100px; 
+height: 18px; 
+overflow: hidden; 
+margin: 10px 5px 10px 0; 
+line-height: 20em; 
+vertical-align: middle; 
+} 
+.btn_addPic:hover em{background-position:-19px 0;} 
+.filePrew { 
+display: block; 
+position: absolute; 
+top: 0; 
+left: 0; 
+width: 100px; 
+height: 33px; 
+font-size: 80px; /* ����ͬ������Ŀɵ������ */ 
+opacity: 0; /* ʵ�ֵĹؼ�� */ 
+filter:alpha(opacity=0);/* ����IE */ 
+} 
+
+
+/* #preview{width:240px;height:320px;overflow:hidden;} 
+#imghead {filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);}  */

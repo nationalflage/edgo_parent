@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="com.hyjx.business.fengtt">
+
+    <!--设置别名-->
+    <typeAlias alias="UserBean" type="com.hyjx.business.fengtt.FengttModel"/>
+
+    <!--SQL片段，模糊查询-->
+    <sql id="QueryCondition">
+        <isNotEmpty property="name">
+            and NAME like '%$name$%'
+        </isNotEmpty>
+        <isNotEmpty property="sex">
+            and SEX like '%$sex$%'
+        </isNotEmpty>
+        <isNotEmpty property="ah">
+            and AH like '%$ah$%'
+        </isNotEmpty>
+        <!--追加条件-->
+        <isNotEmpty property="starttime">
+            and to_char(LASTDATE,'yyyy-mm-dd hh24:mi:ss') > #starttime#
+        </isNotEmpty>
+        <isNotEmpty property="endtime">
+            and #endtime# > to_char(LASTDATE,'yyyy-mm-dd hh24:mi:ss')
+        </isNotEmpty>
+        <!--追加条件-->
+        <isNotEmpty property="scly">
+            and SCLY like '%$scly$%'
+        </isNotEmpty>
+    </sql>
+
+    <!--SQL片段，模糊查询-->
+    <sql id="QueryConditionAdd">
+        <isNotEmpty property="ah1">
+            and AH like '%$ah1$%'
+        </isNotEmpty>
+        <isNotEmpty property="ah2">
+            and AH like '%$ah2$%'
+        </isNotEmpty>
+        <isNotEmpty property="ah3">
+            and AH like '%$ah3$%'
+        </isNotEmpty>
+        <isNotEmpty property="ah4">
+            and AH like '%$ah4$%'
+        </isNotEmpty>
+        <isNotEmpty property="ah5">
+            and AH like '%$ah5$%'
+        </isNotEmpty>
+    </sql>
+
+    <select id="queryList" parameterClass="UserBean" resultClass="UserBean">
+        select
+        ID as id,
+        NAME as name,
+        SEX as sex,
+        AGE as age,
+        BIRTHDAY as birthday,
+        CSDSHENG as csdsheng,
+        CSDSHI as csdshi,
+        CSDXIAN as csdxian,
+        CSDJDMPH as csdjdmph,
+        BMID as bmid,
+        BMMC as bmmc,
+        AH as ah,
+        SFYX as sfyx,
+        CJRID as cjrid,
+        CJRXM as cjrxm,
+        CJRBMID as cjrbmid,
+        CJRBMMC as cjrbmmc,
+
+        UPDATETIME as updatetime,
+        SCLY as scly,
+        LASTDATE as lastdate,
+        ZSC as zsc,
+        LANGUAGE as language
+        from
+        fengtt_study
+        where 1=1
+        <include refid="QueryCondition"/>
+        <include refid="QueryConditionAdd"/>
+        order by updatetime DESC
+    </select>
+
+    <select id="queryCount" parameterClass="UserBean" resultClass="String">
+        select
+        count(1) as id
+        from
+        fengtt_study
+        where 1=1
+        <include refid="QueryCondition"/>
+        <include refid="QueryConditionAdd"/>
+    </select>
+
+    <insert id="insert" parameterClass="UserBean">
+        insert into fengtt_study(
+            ID,
+            NAME,
+            SEX,
+            AGE,
+            BIRTHDAY,
+            CSDSHENG,
+            CSDSHI,
+            CSDXIAN,
+            CSDJDMPH,
+            BMID,
+            BMMC,
+            AH,
+            SFYX,
+            CJRID,
+            CJRXM,
+            CJRBMID,
+            CJRBMMC,
+            UPDATETIME,
+            SCLY,
+            LASTDATE,
+            ZSC,
+            LANGUAGE
+        )values (
+            #id#,
+            #name#,
+            #sex#,
+            #age#,
+            #birthday#,
+            #csdsheng#,
+            #csdshi#,
+            #csdxian#,
+            #csdjdmph#,
+            #bmid#,
+            #bmmc#,
+            #ah#,
+            #sfyx#,
+            #cjrid#,
+            #cjrxm#,
+            #cjrbmid#,
+            #cjrbmmc#,
+            #updatetime#,
+            #scly#,
+            to_date(#lastdate#,'yyyy-mm-dd hh24:mi:ss'),
+            #zsc#,
+            #language#
+                )
+    </insert>
+
+    <update id="update" parameterClass="UserBean">
+        update fengtt_study
+        set
+            ID = #id#,
+            NAME = #name#,
+            SEX = #sex#,
+            AGE = #age#,
+            BIRTHDAY = #birthday#,
+            CSDSHENG = #csdsheng#,
+            CSDSHI = #csdshi#,
+            CSDXIAN = #csdxian#,
+            CSDJDMPH = #csdjdmph#,
+            BMID = #bmid#,
+            BMMC = #bmmc#,
+            AH = #ah#,
+            SFYX = #sfyx#,
+            CJRID = #cjrid#,
+            CJRXM = #cjrxm#,
+            CJRBMID = #cjrbmid#,
+            CJRBMMC = #cjrbmmc#,
+            UPDATETIME = #updatetime#,
+            SCLY = #scly#,
+            LASTDATE = to_date(#lastdate#,'yyyy-mm-dd hh24:mi:ss'),
+            ZSC = #zsc#,
+            LANGUAGE =#language#
+        where 1=1 and ID = #id#
+    </update>
+
+    <select id="getInfoById" parameterClass="UserBean" resultClass="UserBean">
+        select
+            ID as id,
+            NAME as name,
+            SEX as sex,
+            AGE as age,
+            BIRTHDAY as birthday,
+            CSDSHENG as csdsheng,
+            CSDSHI as csdshi,
+            CSDXIAN as csdxian,
+            CSDJDMPH as csdjdmph,
+            BMID as bmid,
+            BMMC as bmmc,
+            AH as ah,
+            SFYX as sfyx,
+            CJRID as cjrid,
+            CJRXM as cjrxm,
+            CJRBMID as cjrbmid,
+            CJRBMMC as cjrbmmc,
+            UPDATETIME as updatetime,
+            SCLY as scly,
+            LASTDATE as lastdate,
+            ZSC as zsc,
+            LANGUAGE as language
+        from
+            fengtt_study
+        where 1=1
+          and ID = #id#
+    </select>
+
+    <!--这个应该把有效值置空-->
+    <delete id="delete" parameterClass="UserBean">
+        delete from fengtt_STUDY
+        where ID = #id# and 1=1
+    </delete>
+</sqlMap>

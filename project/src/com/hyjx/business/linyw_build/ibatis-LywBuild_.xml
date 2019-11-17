@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="com.hyjx.business.linyw_build">
+	<typeAlias alias="lywbuild_model" type="com.hyjx.business.linyw_build.LywBuild_Model"/>
+    <sql id="lywbuild_Condition">
+		<isNotEmpty property="name">
+			and NAME like '%$name$%'
+		</isNotEmpty>
+		<isNotEmpty property="sex">
+			and SEX like '%$sex$%'
+		</isNotEmpty>
+		<isNotEmpty property="age">
+			and AGE like '%$age$%'
+		</isNotEmpty>
+		<isNotEmpty property="birthday">
+			and BIRTHDAY like '%$birthday$%'
+		</isNotEmpty>
+		<isNotEmpty property="csdsheng">
+			and CSDSHENG like '%$csdsheng$%'
+		</isNotEmpty>
+		<isNotEmpty property="csdshi">
+			and CSDSHI like '%$csdshi$%'
+		</isNotEmpty>
+		<isNotEmpty property="csdxian">
+			and CSDXIAN like '%$csdxian$%'
+		</isNotEmpty>
+		<isNotEmpty property="csdjtmph">
+			and CSDJTMPH like '%$csdjtmph$%'
+		</isNotEmpty>
+		<isNotEmpty property="bmmc">
+			and BMMC like '%$bmmc$%'
+		</isNotEmpty>
+		<isNotEmpty property="lywAh">
+			and LYW_AH like '%$lywAh$%'
+		</isNotEmpty>
+		<isNotEmpty property="sfyx">
+			and SFYX like '%$sfyx$%'
+		</isNotEmpty>
+		<isNotEmpty property="cjrxm">
+			and CJRXM like '%$cjrxm$%'
+		</isNotEmpty>
+		<isNotEmpty property="cjrbmmc">
+			and CJRBMMC like '%$cjrbmmc$%'
+		</isNotEmpty>
+		<isNotEmpty property="sjc">
+			and SJC like '%$sjc$%'
+		</isNotEmpty>
+		<isNotEmpty property="lywLy">
+			and LYW_LY like '%$lywLy$%'
+		</isNotEmpty>
+		<isNotEmpty property="zscly">
+			and ZSCLY like '%$zscly$%'
+		</isNotEmpty>
+	</sql>
+	<select id="queryList" parameterClass="lywbuild_model" resultClass="lywbuild_model">
+		select
+			ID as id,
+			NAME as name,
+			SEX as sex,
+			AGE as age,
+			BIRTHDAY as birthday,
+			CSDSHENG as csdsheng,
+			CSDSHI as csdshi,
+			CSDXIAN as csdxian,
+			CSDJTMPH as csdjtmph,
+			BMID as bmid,
+			BMMC as bmmc,
+			LYW_AH as lywAh,
+			SFYX as sfyx,
+			CJRID as cjrid,
+			CJRXM as cjrxm,
+			CJRBMID as cjrbmid,
+			CJRBMMC as cjrbmmc,
+			SJC as sjc,
+			LYW_LY as lywLy,
+			ZSCLY as zscly
+		from 
+			LYW_STUDY where 1=1
+		<isNotEmpty property="qssj">
+			and to_char(SJC,'yyyy-mm-dd') >= #qssj#
+		</isNotEmpty>
+		<isNotEmpty property="jzsj">
+			and to_char(SJC,'yyyy-mm-dd') <![CDATA[<=]]> #jzsj#
+		</isNotEmpty>
+        <include refid="lywbuild_Condition" />
+		order by SJC desc
+	</select>
+	<select id="queryCount" parameterClass="lywbuild_model" resultClass="java.lang.String">
+		select 
+			count(1) as id
+		from 
+			LYW_STUDY  where 1=1
+        <include refid="lywbuild_Condition" />
+	</select>
+	<insert id="insert" parameterClass="lywbuild_model">
+		insert into LYW_STUDY  (
+			ID,
+			NAME,
+			SEX,
+			AGE,
+			BIRTHDAY,
+			CSDSHENG,
+			CSDSHI,
+			CSDXIAN,
+			CSDJTMPH,
+			BMID,
+			BMMC,
+			LYW_AH,
+			SFYX,
+			CJRID,
+			CJRXM,
+			CJRBMID,
+			CJRBMMC,
+			SJC,
+			LYW_LY,
+			ZSCLY
+		)values(
+			#id#,
+			#name#,
+			#sex#,
+			#age#,
+			#birthday#,
+			#csdsheng#,
+			#csdshi#,
+			#csdxian#,
+			#csdjtmph#,
+			#bmid#,
+			#bmmc#,
+			#lywAh#,
+			#sfyx#,
+			#cjrid#,
+			#cjrxm#,
+			#cjrbmid#,
+			#cjrbmmc#,
+			sysdate,
+			#lywLy#,
+			#zscly#
+		)
+	</insert>
+	<update id="update" parameterClass="lywbuild_model">
+		update LYW_STUDY 
+		set
+			ID = #id#,
+			NAME = #name#,
+			SEX = #sex#,
+			AGE = #age#,
+			BIRTHDAY = #birthday#,
+			CSDSHENG = #csdsheng#,
+			CSDSHI = #csdshi#,
+			CSDXIAN = #csdxian#,
+			CSDJTMPH = #csdjtmph#,
+			BMID = #bmid#,
+			BMMC = #bmmc#,
+			LYW_AH = #lywAh#,
+			SFYX = #sfyx#,
+			CJRID = #cjrid#,
+			CJRXM = #cjrxm#,
+			CJRBMID = #cjrbmid#,
+			CJRBMMC = #cjrbmmc#,
+			SJC = sysdate,
+			LYW_LY = #lywLy#,
+			ZSCLY = #zscly#
+		where 1=1
+				and ID = #id#
+	</update>
+	<select id="getInfoById" parameterClass="lywbuild_model" resultClass="lywbuild_model">
+		select
+			ID as id,
+			NAME as name,
+			SEX as sex,
+			AGE as age,
+			BIRTHDAY as birthday,
+			CSDSHENG as csdsheng,
+			CSDSHI as csdshi,
+			CSDXIAN as csdxian,
+			CSDJTMPH as csdjtmph,
+			BMID as bmid,
+			BMMC as bmmc,
+			LYW_AH as lywAh,
+			SFYX as sfyx,
+			CJRID as cjrid,
+			CJRXM as cjrxm,
+			CJRBMID as cjrbmid,
+			CJRBMMC as cjrbmmc,
+			SJC as sjc,
+			LYW_LY as lywLy,
+			ZSCLY as zscly
+		from 
+			LYW_STUDY
+		where 1=1
+            and ID = #id#
+	</select>
+	<delete id="delete" parameterClass="lywbuild_model">
+		delete from LYW_STUDY 
+		where 1=1
+            and ID = #id#
+	</delete>
+</sqlMap>

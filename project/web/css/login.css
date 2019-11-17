@@ -1,0 +1,274 @@
+@charset "utf-8";
+/**
+ * 全屏布局-登录页 CSS
+ * 作者 : 娄赫曦
+ * 日期：2017-8-21
+ */
+body{font-family:'Microsoft Yahei','宋体',Tahoma,Arial;font-size:12px;color:#333;margin:0;padding:0; }
+div,form,img,ul,ol,li,dl,dt,dd,p,h1,h2,h3,h4,h5,h6,iframe{margin:0;padding:0;}
+li{list-style:none;}
+img{border:none;}
+input,textarea,select{outline:none;font-family:'Microsoft Yahei','宋体',Tahoma,Arial;}
+a{outline:none;text-decoration:none;}
+.none{display: none;}
+
+body{
+    text-align: center;
+    background: url(../images/login/login-bg.png);  /*背景平铺*/
+    height:100%;
+    overflow: hidden;
+}
+/*左下角和右上角的小图片*/
+.login-bg1{
+    position: fixed;
+    _position:absolute;
+    left:0;
+    bottom:0;
+}
+.login-bg2{
+    position: fixed;
+    _position:absolute;
+    right:0;
+    top:0;
+}
+.login{
+    width: 621px;
+    height:621px;
+    position: absolute;
+    top:50%;
+    left:50%;
+    margin-top:-310px;
+    margin-left:-310px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+/*要一直旋转的大圆圈*/
+.login-circle2{
+    width:100%;
+    position: absolute;
+    top:0;
+    left: 0;
+    z-index: -1;
+}
+/*系统名*/
+.header{
+    position: fixed;
+    _position:absolute;
+    top:25px;
+    left:40px;
+}
+/*footer*/
+.login .footer{
+    width: 100%;
+    color:#fff;
+    font-size:13px;
+    position: fixed;
+    _position:absolute;
+    bottom:10px;
+}
+
+/*登录框*/
+.loginForm{
+    width:233px;
+    height: 373px;
+    margin:35px auto;
+    text-align: left;
+    background:url(../images/login/login-circle1.png) no-repeat center top;
+    color: #fff;
+    padding:180px 155px 0 155px;
+    position: relative;
+}
+.loginForm h2{
+    font-size:20px;
+    font-weight: normal;
+}
+.loginForm p{
+    margin-top:8px;
+    position: relative;
+}
+.loginForm .username,.loginForm .password,.loginForm .check{
+    width:83%;
+    height:38px;
+    line-height: 38px;
+    border-radius: 3px;
+    padding:0 0 0 17%;
+    font-size:15px;
+    border:1px solid #5f6b70;
+}
+.loginForm .username{
+    background: #fff url(../images/login/login-user.png) no-repeat 10px center;
+}
+.loginForm .password{
+    background:#fff url(../images/login/login-pwd.png) no-repeat 10px center;
+}
+/*验证码*/
+.loginForm .verify{
+    height: 38px;
+}
+.loginForm .check{
+    background: #fff url(../images/login/login-check.png) no-repeat 10px center;
+}
+.loginForm .check-img{
+    width:80px;
+    height:38px;
+    position: absolute;
+    top:1px;
+    right: 1px;
+    border-left:1px solid #ddd;
+    cursor: pointer;
+}
+/*记住密码*/
+.loginForm .remember{
+    vertical-align: -2px;
+}
+.loginForm label{
+    cursor: pointer;
+    font-size: 12px;
+}
+/*忘记密码*/
+.loginForm .forget{
+    font-size:13px;
+    /*position: absolute;
+    right:0;
+    top:3px;*/
+    color:#fff;
+    margin:0 20px;
+}
+.loginForm .forget:hover{
+    color:#ece707;
+}
+/*登录按钮*/
+.loginForm .btn{
+    width:100%;
+    height:40px;
+    line-height: 38px;
+    color:#7f821f;
+    text-align: center;
+    border:0;
+    background-color: #ece707;
+    font-size:15px;
+    margin-top:20px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.loginForm .btn:hover{
+    background-color: #fffb43;
+}
+/*获取焦点时的变化*/
+.loginForm .username:focus,.loginForm .password:focus,.loginForm .check:focus{
+    border:1px solid #ece707;
+    box-shadow: 0px 0px 5px #ece707;
+}
+/*输入错误时标亮的红色框，需要时可将class="wrong"追加在改文本框对象上,验证通过后移除*/
+.loginForm .wrong,.loginForm .wrong:focus{
+    border:1px solid #cc0000;
+    box-shadow: 0px 0px 5px #cc0000;
+}
+
+/*闪光点*/
+.point{
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+.point1{
+    margin-top: -263px;
+    margin-left: 26px;
+}
+.point2{
+    margin-left: 250px;
+    margin-top: 25px;
+}
+.point3{
+    margin-top: 247px;
+    margin-left: -35px;
+}
+.point4{
+    margin-top: -37px;
+    margin-left: -261px;
+}
+/*选择子系统*/
+.select-system{
+    height:30px;
+    font-size:16px;
+    color:#0ef7f7;
+    overflow: hidden;
+    position: absolute;
+    top:155px;
+    cursor: pointer;
+    overflow: visible;
+}
+.select-system .dropdown-menu{
+    display: none;
+    background-color: #000;
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+    position: absolute;
+    top:25px;
+    left:95px;
+    z-index: 9997;
+    border:1px solid #1c8a8e;
+    font-size: 14px;
+    padding:3px 10px;
+    border-radius: 3px;
+    color:#fff;
+}
+.select-system .dropdown-menu:after{
+    content: "";
+    background: url(../images/login/login-toparrow.png) no-repeat;
+    width:9px;
+    height: 6px;
+    position: absolute;
+    top:-6px;
+    left:15px;
+}
+.select-system .dropdown-menu li{
+    white-space: nowrap;
+    margin:5px 0;
+    cursor: pointer;
+}
+.select-system .dropdown-menu li:hover,.select-system .dropdown-menu li.active{
+    color: #ece707;
+}
+/*鼠标经过选择子系统一行，出现选择层*/
+.select-system:hover .dropdown-menu{
+    display: block;
+}
+/*右侧泡泡框--错误提示*/
+.error-tip{
+    display: inline-block;
+    *display: inline;
+    *zoom:1;
+    height:35px;
+    line-height: 35px;
+    background-color: #fff;
+    border:1px solid #f0fbfb;
+    border-radius: 3px;
+    color:#ff4848;
+    font-size: 14px;
+    padding:0 10px;
+    font-weight: normal;
+    position: absolute;
+}
+/*泡泡框的左箭头*/
+.error-tip:after{
+    content: "";
+    background: url(../images/login/login-leftarrow.png) no-repeat;
+    width:5px;
+    height: 11px;
+    position: absolute;
+    top:12px;
+    left:-6px;
+}
+/*错误提示：用户名和密码不匹配*/
+.error-tip.error-tip1{
+    top:214px;
+    left:393px;
+}
+/*错误提示：验证码错误*/
+.error-tip.error-tip2{
+    top:285px;
+    left:393px;
+}

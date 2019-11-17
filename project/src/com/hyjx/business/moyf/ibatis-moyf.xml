@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="com.hyjx.business.moyf">
+    <!-- 别名 -->
+    <typeAlias alias="MoyfModel" type="com.hyjx.business.moyf.MoyfModel" />
+    <!-- 条件 如果参数不为空则查询条件有效 -->
+        <sql id="MoyfCondition">
+            <isNotEmpty property="name">
+                and NAME like '%$name$%'
+            </isNotEmpty>
+            <isNotEmpty property="sex">
+                and SEX like '%$sex$%'
+            </isNotEmpty>
+            <isNotEmpty property="age">
+                and AGE like '%$age$%'
+            </isNotEmpty>
+            <isNotEmpty property="birthday">
+                and BIRTHDAY like '%$birthday$%'
+            </isNotEmpty>
+            <isNotEmpty property="csdsheng">
+                and CSDSHENG like '%$csdsheng$%'
+            </isNotEmpty>
+            <isNotEmpty property="csdshi">
+                and CSDSHI like '%$csdshi$%'
+            </isNotEmpty>
+            <isNotEmpty property="csdxian">
+                and CSDXIAN like '%$csdxian$%'
+            </isNotEmpty>
+            <isNotEmpty property="csdjdmph">
+                and CSDJDMPH like '%$csdjdmph$%'
+            </isNotEmpty>
+            <isNotEmpty property="bmmc">
+                and BMMC like '%$bmmc$%'
+            </isNotEmpty>
+            <isNotEmpty property="ah">
+                and AH like '%$ah$%'
+            </isNotEmpty>
+            <isNotEmpty property="sfyx">
+                and SFYX like '%$sfyx$%'
+            </isNotEmpty>
+            <isNotEmpty property="cjrxm">
+                and CJRXM like '%$cjrxm$%'
+            </isNotEmpty>
+            <isNotEmpty property="cjrbmmc">
+                and CJRBMMC like '%$cjrbmmc$%'
+            </isNotEmpty>
+            <isNotEmpty property="scly">
+                and SCLY like '%$scly$%'
+            </isNotEmpty>
+        </sql>
+    <!-- 查询列表 -->
+    <select id="queryList" parameterClass="MoyfModel" resultClass="MoyfModel">
+            select
+            ID as id,
+            NAME as name,
+            SEX as sex,
+            AGE as age,
+            BIRTHDAY as birthday,
+            CSDSHENG as csdsheng,
+            CSDSHI as csdshi,
+            CSDXIAN as csdxian,
+            CSDJDMPH as csdjdmph,
+            BMID as bmid,
+            BMMC as bmmc,
+            AH as ah,
+            SFYX as sfyx,
+            CJRID as cjrid,
+            CJRXM as cjrxm,
+            CJRBMID as cjrbmid,
+            CJRBMMC as cjrbmmc,
+            SCLY as scly
+            from MOYF_STUDY
+            where 1=1
+          <!-- 复用 -->
+          <include refid="MoyfCondition" />
+    </select>
+    <!-- 查询计数 -->
+    <select id="queryCount" parameterClass="MoyfModel" resultClass="String">
+        select COUNT(1)
+        from MOYF_STUDY
+        where 1=1
+        <include refid="MoyfCondition"/>
+    </select>
+    <!-- 删除 -->
+    <delete id="delete" parameterClass="MoyfModel">
+        delete from MOYF_STUDY where 1=1 and ID=#id#
+    </delete>
+    <!-- 插入 -->
+    <insert id="insert" parameterClass="MoyfModel" >
+        insert into MOYF_STUDY (
+            id,
+			name,
+			sex,
+			age,
+			birthday,
+			csdsheng,
+			csdshi,
+			csdxian,
+			csdjdmph,
+			bmid,
+			bmmc,
+			ah,
+			sfyx,
+			cjrid,
+			cjrxm,
+			cjrbmid,
+			cjrbmmc,
+			scly
+        )values(
+            #id#,
+			#name#,
+			#sex#,
+			#age#,
+			#birthday#,
+			#csdsheng#,
+			#csdshi#,
+			#csdxian#,
+			#csdjdmph#,
+			#bmid#,
+			#bmmc#,
+			#ah#,
+			#sfyx#,
+			#cjrid#,
+			#cjrxm#,
+			#cjrbmid#,
+			#cjrbmmc#,
+			#scly#
+        )
+    </insert>
+    <!-- 修改 -->
+    <update id="update" parameterClass="MoyfModel" >
+        update MOYF_STUDY
+        set
+            name = #name#,
+            sex = #sex#,
+            age = #age#,
+            birthday = #birthday#,
+            csdsheng = #csdsheng#,
+            csdshi = #csdshi#,
+            csdxian = #csdxian#,
+            csdjdmph = #csdjdmph#,
+            bmid = #bmid#,
+            bmmc = #bmmc#,
+            ah = #ah#,
+            sfyx = #sfyx#,
+            cjrid = #cjrid#,
+            cjrxm = #cjrxm#,
+            cjrbmid = #cjrbmid#,
+            cjrbmmc = #cjrbmmc#,
+            scly = #scly#
+        where id = #id#
+    </update>
+    <!-- 按ID获取信息 -->
+    <select id="getInfoById" parameterClass="MoyfModel" resultClass="MoyfModel">
+        select * from MOYF_STUDY where id=#id#
+    </select>
+</sqlMap>

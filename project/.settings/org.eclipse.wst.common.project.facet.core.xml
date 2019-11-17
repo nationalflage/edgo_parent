@@ -1,0 +1,34 @@
+<<<<<<< .mine
+<?xml version="1.0" encoding="UTF-8"?>
+<faceted-project>
+  <runtime name="com.genuitec.embedded.tomcat.runtime.v85"/>
+  <fixed facet="wst.jsdt.web"/>
+  <installed facet="java" version="1.6"/>
+  <installed facet="jst.web" version="2.4"/>
+  <installed facet="maven" version="1.0"/>
+  <installed facet="wst.jsdt.web" version="1.0"/>
+  <installed facet="me.spring" version="3.1"/>
+</faceted-project>
+||||||| .r0
+=======
+<<<<<<< .mine
+<?xml version="1.0" encoding="UTF-8"?>
+<faceted-project>
+  <fixed facet="wst.jsdt.web"/>
+  <installed facet="java" version="1.6"/>
+  <installed facet="jst.web" version="3.0"/>
+  <installed facet="wst.jsdt.web" version="1.0"/>
+</faceted-project>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<faceted-project>
+  <runtime name="com.genuitec.embedded.tomcat.runtime.v85"/>
+  <fixed facet="wst.jsdt.web"/>
+  <installed facet="java" version="1.6"/>
+  <installed facet="jst.web" version="2.4"/>
+  <installed facet="maven" version="1.0"/>
+  <installed facet="wst.jsdt.web" version="1.0"/>
+  <installed facet="me.spring" version="3.1"/>
+</faceted-project>
+>>>>>>> .r1974
+>>>>>>> .r1975

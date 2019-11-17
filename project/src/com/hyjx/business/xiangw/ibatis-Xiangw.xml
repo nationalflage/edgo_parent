@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.hyjx.business.xiangw">
+    <typeAlias alias="xiangwmodel" type="com.hyjx.business.xiangw.XiangWModel"/>
+    <sql id="XiangwCondition">
+        <isNotEmpty property="name">
+            and instr(name,#name#)>0
+        </isNotEmpty>
+        <isNotEmpty property="sex">
+            and instr(sex,#sex#)>0
+        </isNotEmpty>
+        <isNotEmpty property="age">
+            and instr(age,#age#)>0
+        </isNotEmpty>
+        <isNotEmpty property="birthday">
+            and instr(birthday,#birthday#)>0
+        </isNotEmpty>
+        <isNotEmpty property="csdsheng">
+            and instr(csdsheng,#csdsheng#)>0
+        </isNotEmpty>
+        <isNotEmpty property="csdshi">
+            and instr(csdshi,#csdshi#)>0
+        </isNotEmpty>
+        <isNotEmpty property="csdxian">
+            and instr(csdxian,#csdxian#)>0
+        </isNotEmpty>
+        <isNotEmpty property="csdjdmph">
+            and instr(csdjdmph,#csdjdmph#)>0
+        </isNotEmpty>
+        <isNotEmpty property="bmmc">
+            and instr(bmmc,#bmmc#)>0
+        </isNotEmpty>
+        <isNotEmpty property="ah">
+            and instr(ah,#ah#)>0
+        </isNotEmpty>
+        <isNotEmpty property="sfyx">
+            and instr(sfyx,#sfyx#)>0
+        </isNotEmpty>
+        <isNotEmpty property="scly">
+            and instr(scly,#scly#)>0
+        </isNotEmpty>
+        <isNotEmpty property="cjrxm">
+            and instr(cjrxm,#cjrxm#)>0
+        </isNotEmpty>
+        <isNotEmpty property="cjrbmmc">
+            and instr(cjrbmmc,#cjrbmmc#)>0
+        </isNotEmpty>
+        <isNotEmpty property="begindate">
+            and BIRTHDAY>=#begindate#
+        </isNotEmpty>
+        <isNotEmpty property="enddate">
+            and #enddate#>=BIRTHDAY
+        </isNotEmpty>
+    </sql>
+
+    <select id="queryList" parameterClass="xiangwmodel" resultClass="xiangwmodel">
+        select
+          ID as id,
+          NAME as name,
+          SEX as sex,
+          AGE as age,
+          BIRTHDAY as birthday,
+          CSDSHENG as csdsheng,
+          CSDSHI as csdshi,
+          CSDXIAN as csdxian,
+          CSDJDMPH as csdjdmph,
+          BMID as bmid,
+          BMMC as bmmc,
+          AH as ah,
+          SFYX as sfyx,
+          SCLY as scly,
+          CJRID as cjrid,
+          CJRXM as cjrxm,
+          CJRBMID as cjrbmid,
+          CJRBMMC as cjrbmmc,
+          LASTDATE as lastdate
+          from XIANGW_STUDY
+          where 1=1
+          <include refid="XiangwCondition" />
+    </select>
+
+    <select id="queryCount" parameterClass="xiangwmodel" resultClass="java.lang.String">
+      select  count(1) as id
+      from XIANGW_STUDY
+      where 1=1
+        <include refid="XiangwCondition" />
+    </select>
+
+    <insert id="insert" parameterClass="XiangWModel">
+        insert into XIANGW_STUDY(
+            ID,
+            NAME,
+            SEX,
+            AGE,
+            BIRTHDAY,
+            CSDSHENG,
+            CSDSHI,
+            CSDXIAN,
+            CSDJDMPH,
+            BMID,
+            BMMC,
+            AH,
+            SFYX,
+            SCLY,
+            CJRID,
+            CJRXM,
+            CJRBMID,
+            CJRBMMC,
+            LASTDATE
+        )values (
+            #id#,
+            #name#,
+            #sex#,
+            #age#,
+            #birthday#,
+            #csdsheng#,
+            #csdshi#,
+            #csdxian#,
+            #csdjdmph#,
+            #bmid#,
+            #bmmc#,
+            #ah#,
+            #sfyx#,
+            #scly#,
+            #cjrid#,
+            #cjrxm#,
+            #cjrbmid#,
+            #cjrbmmc#,
+            SYSDATE
+        )
+    </insert>
+
+    <select id="getInfoById" parameterClass="xiangwmodel" resultClass="xiangwmodel">
+      SELECT
+        ID as id,
+          NAME as name,
+          SEX as sex,
+          AGE as age,
+          BIRTHDAY as birthday,
+          CSDSHENG as csdsheng,
+          CSDSHI as csdshi,
+          CSDXIAN as csdxian,
+          CSDJDMPH as csdjdmph,
+          BMID as bmid,
+          BMMC as bmmc,
+          AH as ah,
+          SFYX as sfyx,
+          SCLY as scly,
+          CJRID as cjrid,
+          CJRXM as cjrxm,
+          CJRBMID as cjrbmid,
+          CJRBMMC as cjrbmmc,
+          LASTDATE as lastedate
+          from
+          XIANGW_STUDY where 1=1 and ID=#id#
+    </select>
+
+
+    <update id="update" parameterClass="xiangwmodel">
+      update   XIANGW_STUDY
+      set
+          NAME = #name#,
+          SEX = #sex#,
+          AGE = #age#,
+          BIRTHDAY = #birthday#,
+          CSDSHENG = #csdsheng#,
+          CSDSHI = #csdshi#,
+          CSDXIAN = #csdxian#,
+          CSDJDMPH = #csdjdmph#,
+          BMID = #bmid#,
+          BMMC = #bmmc#,
+          AH = #ah#,
+          SFYX = #sfyx#,
+          SCLY = #scly#,
+          CJRID = #cjrid#,
+          CJRXM = #cjrxm#,
+          CJRBMID = #cjrbmid#,
+          CJRBMMC = #cjrbmmc#,
+          LASTDATE = SYSDATE
+          where  ID=#id#
+    </update>
+
+    <delete id="delete" parameterClass="xiangwmodel">
+        delete  from XIANGW_STUDY where ID=#id#
+    </delete>
+</sqlMap>

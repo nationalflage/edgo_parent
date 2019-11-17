@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="com.hyjx.business.linyw">
+    <typeAlias alias="LinywModel" type="com.hyjx.business.linyw.LinywModel"/>
+    <sql id="linywCondition">
+        <isNotEmpty property="name">
+            and instr (NAME,#name#)>0
+        </isNotEmpty>
+        <isNotEmpty property="sex">
+            and instr (SEX,#sex#)>0
+        </isNotEmpty>
+        <isNotEmpty property="age">
+            and instr (AGE,#age#)>0
+        </isNotEmpty>
+        <isNotEmpty property="birthday">
+            and instr (BIRTHDAY,#birthday#)>0
+        </isNotEmpty>
+        <isNotEmpty property="csdsheng">
+            and instr (CSDSHENG,#csdsheng#)>0
+        </isNotEmpty>
+        <isNotEmpty property="csdshi">
+            and instr (CSDSHI,#csdshi#)>0
+        </isNotEmpty>
+        <isNotEmpty property="csdxian">
+            and instr (CSDXIAN,#csdxian#)>0
+        </isNotEmpty>
+        <isNotEmpty property="csdjtmph">
+            and instr (CSDJTMPH,#csdjtmph#)>0
+        </isNotEmpty>
+        <isNotEmpty property="bmmc">
+            and instr (BMMC,#bmmc#)>0
+        </isNotEmpty>
+        <isNotEmpty property="lyw_ah">
+            and instr (LYW_AH,#lyw_ah#)>0
+        </isNotEmpty>
+        <isNotEmpty property="sfyx">
+            and instr (SFYX,#sfyx#)>0
+        </isNotEmpty>
+        <isNotEmpty property="cjrxm">
+            and instr (CJRXM,#cjrxm#)>0
+        </isNotEmpty>
+        <isNotEmpty property="cjrbmmc">
+            and instr (CJRBMMC,#cjrbmmc#)>0
+        </isNotEmpty>
+    </sql>
+    <select id="queryList" resultClass="LinywModel" parameterClass="LinywModel">
+        SELECT
+        ID as id,
+        NAME as name,
+        SEX as sex,
+        AGE as age,
+        BIRTHDAY as birthday,
+        CSDSHENG as csdsheng,
+        CSDSHI as csdshi,
+        CSDXIAN as csdxian,
+        CSDJTMPH as csdjtmph,
+        BMID as bmid,
+        BMMC as bmmc,
+        LYW_AH as lyw_ah,
+        SFYX as sfyx,
+        CJRID as cjrid,
+        CJRXM as cjrxm,
+        CJRBMID as cjrbmid,
+        CJRBMMC as cjrbmmc,
+        SJC as sjc,
+        LYW_LY as lyw_ly,
+        ZSCLY as zscly
+        FROM
+        LYW_STUDY
+        WHERE
+        1=1
+        <isNotEmpty property="qssj">
+            and to_char(SJC,'yyyy-mm-dd')
+            >= #qssj#
+        </isNotEmpty>
+        <isNotEmpty property="jzsj">
+            and to_char(SJC,'yyyy-mm-dd')
+            <![CDATA[<=]]>  #jzsj#
+        </isNotEmpty>
+        order by SJC desc
+    </select>
+
+
+    <select id="queryCount"  parameterClass="LinywModel" resultClass="java.lang.String">
+        SELECT COUNT(1) AS id
+        FROM LYW_STUDY
+        WHERE 1=1
+        <include refid="linywCondition"/>
+    </select>
+
+    <insert id="insert" parameterClass="LinywModel">
+        INSERT INTO LYW_STUDY (
+          ID,
+          NAME,
+          SEX,
+          AGE,
+          BIRTHDAY,
+          CSDSHENG,
+          CSDSHI,
+          CSDXIAN,
+          CSDJTMPH,
+          BMID,
+          BMMC,
+          LYW_AH,
+          SFYX,
+          CJRID,
+          CJRXM,
+          CJRBMID,
+          CJRBMMC,
+          SJC,
+          LYW_LY,
+          ZSCLY
+        ) VALUES (
+          #id#,
+          #name#,
+          #sex#,
+          #age#,
+          #birthday#,
+          #csdsheng#,
+          #csdshi#,
+          #csdxian#,
+          #csdjtmph#,
+          #bmid#,
+          #bmmc#,
+          #lyw_ah#,
+          #sfyx#,
+          #cjrid#,
+          #cjrxm#,
+          #cjrbmid#,
+          #cjrbmmc#,
+          sysdate,
+          #lyw_ly#,
+          #zscly#
+
+        )
+
+    </insert>
+
+    <update id="update" parameterClass="LinywModel">
+		update LYW_STUDY
+		set
+			ID = #id#,
+			NAME = #name#,
+			SEX = #sex#,
+			AGE = #age#,
+			BIRTHDAY = #birthday#,
+			CSDSHENG = #csdsheng#,
+			CSDSHI = #csdshi#,
+			CSDXIAN = #csdxian#,
+			CSDJTMPH = #csdjtmph#,
+			BMID = #bmid#,
+			BMMC = #bmmc#,
+			LYW_AH = #lyw_ah#,
+			SFYX = #sfyx#,
+			CJRID = #cjrid#,
+			CJRXM = #cjrxm#,
+			CJRBMID = #cjrbmid#,
+			CJRBMMC = #cjrbmmc#,
+			SJC =  sysdate,
+			LYW_LY = #lyw_ly#,
+			ZSCLY = #zscly#
+		where 1=1
+				and ID = #id#
+	</update>
+    <select id="getInfoById" parameterClass="LinywModel" resultClass="LinywModel">
+		select
+			ID as id,
+			NAME as name,
+			SEX as sex,
+			AGE as age,
+			BIRTHDAY as birthday,
+			CSDSHENG as csdsheng,
+			CSDSHI as csdshi,
+			CSDXIAN as csdxian,
+			CSDJTMPH as csdjtmph,
+			BMID as bmid,
+			BMMC as bmmc,
+			LYW_AH as lyw_ah,
+			SFYX as sfyx,
+			CJRID as cjrid,
+			CJRXM as cjrxm,
+			CJRBMID as cjrbmid,
+			CJRBMMC as cjrbmmc,
+			SJC as sjc,
+			LYW_LY as lyw_ly,
+			ZSCLY as zscly
+		from
+			LYW_STUDY
+		where 1=1
+            and ID = #id#
+	</select>
+    <delete id="delete" parameterClass="LinywModel">
+		delete from LYW_STUDY
+		where 1=1
+            and ID = #id#
+	</delete>
+</sqlMap>

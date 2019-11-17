@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="com.hyjx.business.liulmnew">
+	<typeAlias alias="liulmnewmodel" type="com.hyjx.business.liulmNew.LiulmNewModel"/>
+    <sql id="liulmnewCondition">
+		<isNotEmpty property="name">
+			and NAME like '%$name$%'
+		</isNotEmpty>
+		<isNotEmpty property="sex">
+			and SEX like '%$sex$%'
+		</isNotEmpty>
+		<isNotEmpty property="age">
+			and AGE like '%$age$%'
+		</isNotEmpty>
+		<isNotEmpty property="birthday">
+			and BIRTHDAY like '%$birthday$%'
+		</isNotEmpty>
+		<isNotEmpty property="csdProvince">
+			and CSD_PROVINCE like '%$csdProvince$%'
+		</isNotEmpty>
+		<isNotEmpty property="csdCity">
+			and CSD_CITY like '%$csdCity$%'
+		</isNotEmpty>
+		<isNotEmpty property="csdArea">
+			and CSD_AREA like '%$csdArea$%'
+		</isNotEmpty>
+		<isNotEmpty property="csdAddress">
+			and CSD_ADDRESS like '%$csdAddress$%'
+		</isNotEmpty>
+		<isNotEmpty property="deptName">
+			and DEPT_NAME like '%$deptName$%'
+		</isNotEmpty>
+		<isNotEmpty property="hobby">
+			and HOBBY like '%$hobby$%'
+		</isNotEmpty>
+		<isNotEmpty property="createdName">
+			and CREATED_NAME like '%$createdName$%'
+		</isNotEmpty>
+		<isNotEmpty property="createdDeptName">
+			and CREATED_DEPT_NAME like '%$createdDeptName$%'
+		</isNotEmpty>
+		<isNotEmpty property="scly">
+			and SCLY like '%$scly$%'
+		</isNotEmpty>
+		<isNotEmpty property="createdTime">
+			and CREATED_TIME like '%$createdTime$%'
+		</isNotEmpty>
+		<isNotEmpty property="modifiedTime">
+			and MODIFIED_TIME like '%$modifiedTime$%'
+		</isNotEmpty>
+        <isNotEmpty property="minAge">
+            and AGE &gt;= $minAge$
+        </isNotEmpty>
+        <isNotEmpty property="maxAge">
+            and AGE &lt;= $maxAge$
+        </isNotEmpty>
+        <isNotEmpty property="minBirthday">
+            and BIRTHDAY &gt;= '$minBirthday$'
+        </isNotEmpty>
+        <isNotEmpty property="maxBirthday">
+            and BIRTHDAY &lt;= '$maxBirthday$'
+        </isNotEmpty>
+	</sql>
+	<select id="queryList" parameterClass="liulmnewmodel" resultClass="liulmnewmodel">
+		select
+			ID as id,
+			NAME as name,
+			SEX as sex,
+			AGE as age,
+			BIRTHDAY as birthday,
+			CSD_PROVINCE as csdProvince,
+			CSD_CITY as csdCity,
+			CSD_AREA as csdArea,
+			CSD_ADDRESS as csdAddress,
+			DEPT_ID as deptId,
+			DEPT_NAME as deptName,
+			HOBBY as hobby,
+			VALID as valid,
+			CREATED_ID as createdId,
+			CREATED_NAME as createdName,
+			CREATED_DEPT_ID as createdDeptId,
+			CREATED_DEPT_NAME as createdDeptName,
+			SCLY as scly,
+			CREATED_TIME as createdTime,
+			MODIFIED_TIME as modifiedTime
+		from 
+			LLM_STUDY where 1=1
+        <include refid="liulmnewCondition" />
+	</select>
+	<select id="queryCount" parameterClass="liulmnewmodel" resultClass="java.lang.String">
+		select 
+			count(1) as id
+		from 
+			LLM_STUDY  where 1=1
+        <include refid="liulmnewCondition" />
+	</select>
+	<insert id="insert" parameterClass="liulmnewmodel">
+		insert into LLM_STUDY  (
+			ID,
+			NAME,
+			SEX,
+			AGE,
+			BIRTHDAY,
+			CSD_PROVINCE,
+			CSD_CITY,
+			CSD_AREA,
+			CSD_ADDRESS,
+			DEPT_ID,
+			DEPT_NAME,
+			HOBBY,
+			VALID,
+			CREATED_ID,
+			CREATED_NAME,
+			CREATED_DEPT_ID,
+			CREATED_DEPT_NAME,
+			SCLY,
+			CREATED_TIME,
+			MODIFIED_TIME
+		)values(
+			#id#,
+			#name#,
+			#sex#,
+			#age#,
+			#birthday#,
+			#csdProvince#,
+			#csdCity#,
+			#csdArea#,
+			#csdAddress#,
+			#deptId#,
+			#deptName#,
+			#hobby#,
+			#valid#,
+			#createdId#,
+			#createdName#,
+			#createdDeptId#,
+			#createdDeptName#,
+			#scly#,
+			#createdTime#,
+			#modifiedTime#
+		)
+	</insert>
+	<update id="update" parameterClass="liulmnewmodel">
+		update LLM_STUDY 
+		set
+			ID = #id#,
+			NAME = #name#,
+			SEX = #sex#,
+			AGE = #age#,
+			BIRTHDAY = #birthday#,
+			CSD_PROVINCE = #csdProvince#,
+			CSD_CITY = #csdCity#,
+			CSD_AREA = #csdArea#,
+			CSD_ADDRESS = #csdAddress#,
+			DEPT_ID = #deptId#,
+			DEPT_NAME = #deptName#,
+			HOBBY = #hobby#,
+			VALID = #valid#,
+			CREATED_ID = #createdId#,
+			CREATED_NAME = #createdName#,
+			CREATED_DEPT_ID = #createdDeptId#,
+			CREATED_DEPT_NAME = #createdDeptName#,
+			SCLY = #scly#,
+			CREATED_Time = #createdTime#,
+			MODIFIED_Time = #modifiedTime#
+		where 1=1
+				and ID = #id#
+	</update>
+	<select id="getInfoById" parameterClass="liulmnewmodel" resultClass="liulmnewmodel">
+		select
+			ID as id,
+			NAME as name,
+			SEX as sex,
+			AGE as age,
+			BIRTHDAY as birthday,
+			CSD_PROVINCE as csdProvince,
+			CSD_CITY as csdCity,
+			CSD_AREA as csdArea,
+			CSD_ADDRESS as csdAddress,
+			DEPT_ID as deptId,
+			DEPT_NAME as deptName,
+			HOBBY as hobby,
+			VALID as valid,
+			CREATED_ID as createdId,
+			CREATED_NAME as createdName,
+			CREATED_DEPT_ID as createdDeptId,
+			CREATED_DEPT_NAME as createdDeptName,
+			SCLY as scly,
+			CREATED_TIME as createdTime,
+			MODIFIED_TIME as modifiedTime
+		from 
+			LLM_STUDY
+		where 1=1
+            and ID = #id#
+	</select>
+	<delete id="delete" parameterClass="liulmnewmodel">
+		delete from LLM_STUDY 
+		where 1=1
+            and ID = #id#
+	</delete>
+</sqlMap>

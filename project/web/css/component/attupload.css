@@ -1,0 +1,230 @@
+/*
+ *  附件上传组件样式
+ * @author : louhexi
+*/
+body{font-family:'Microsoft Yahei','宋体',Tahoma,Arial;font-size:14px;color:#333;margin:0;padding:0;}
+div,form,img,ul,ol,li,dl,dt,dd,p,h1,h2,h3,h4,h5,h6,iframe{margin:0;padding:0;}
+img{border:none;}
+
+.hy-attupload2{
+    position: relative;
+    margin:10px;
+}
+.attach-wrap{
+    position: relative;
+    width: 212px;
+    height: 48px;
+    padding-left: 48px;
+    font-size: 12px;
+    margin: 0 10px 10px 0;
+    vertical-align: top;
+    display: inline-block;
+    zoom: 1;
+}
+.attach-wrap:hover .attach-toolbar-wrap{
+    display: block;
+}
+/*不同的文件类型对应的图标*/
+.attach-bg{
+    position: absolute;
+    top:0;
+    left:0;
+    width:48px;
+    height:48px;
+    overflow: hidden;
+    vertical-align: middle;
+    text-align: center;
+}
+.ico {
+    font-weight: normal;
+    overflow: hidden;
+    line-height: 0;
+    font-size: 0;
+    text-align: center;
+    display: inline-block;
+    zoom: 1;
+    vertical-align: middle;
+}
+.ico-file-docx{
+    background-image:url(../../images/component/attach_docx.png);
+}
+.ico-file-pdf{
+    background-image:url(../../images/component/attach_pdf.png);
+}
+.ico-file-excel{
+    background-image:url(../../images/component/attach_excel.png);
+}
+.ico-file-ppt{
+    background-image:url(../../images/component/attach_ppt.png);
+}
+.ico-file-txt{
+    background-image:url(../../images/component/attach_txt.png);
+}
+.ico-file-audio{
+    background-image:url(../../images/component/attach_audio.png);
+}
+.ico-file-video{
+    background-image:url(../../images/component/attach_video.png);
+}
+.ico-file-flash{
+    background-image:url(../../images/component/attach_flash.png);
+}
+.ico-file-zip{
+    background-image:url(../../images/component/attach_zip.png);
+}
+.ico-file-code{
+    background-image:url(../../images/component/attach_code.png);
+}
+.ico-file-img{
+    background-image:url(../../images/component/attach_img.png);
+}
+.ico-file-ps{
+    background-image:url(../../images/component/attach_ps.png);
+}
+.ico-file-ai{
+    background-image:url(../../images/component/attach_ai.png);
+}
+.ico-file-error{
+    background-image:url(../../images/component/attach_error.png);
+}
+/*文字溢出省略*/
+.ellipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    zoom: 1;
+}
+.attach-info-wrap{
+    position: relative;
+    height: 48px;
+    padding: 0 10px;
+    background-color: #f5f5f5;
+}
+.attach-name{
+    padding-top: 6px;
+    color: #3d4245;
+    position: relative;
+    font-size: 14px;
+}
+.attach-size{
+    color: #888;
+    position: relative;
+}
+.attach-speed{
+    position: absolute;
+    right: 12px;
+    top: 0;
+    font-size: 12px;
+    line-height: 18px;
+}
+.attach-progress{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width:0;
+    height: 3px;
+    background-color: #3498db;
+}
+.attach-loading{
+    position: absolute;
+    top:8px;
+    left:90px;
+}
+
+/*鼠标经过时的操作工具层*/
+.attach-toolbar-wrap{
+    position: relative;
+}
+.attach-toolbar-mask{
+    position: absolute;
+    top:0;
+    right:0;
+    z-index: -1;
+    width:100%;
+    height:100%;
+    background-color: #000;
+    opacity: 0.6;
+    filter:alpha(opacity=60);
+}
+.attach-toolbar-wrap{
+    display: none;
+    position: absolute;
+    top:0;
+    right:0;
+    z-index: 4;
+    width:100%;
+    height:100%;
+    text-align: right;
+}
+.attach-toolbar-wrap .ico:hover{
+    transform: scale(1.1);
+}
+.attach-preview, .attach-download, .attach-remove {
+    display: inline-block;
+    *display: inline;
+    *zoom:1;
+    margin-top:13px;
+    margin-right:10px;
+}
+.ico-attach-preview,.ico-attach-download,.ico-attach-remove{
+    height:18px;
+    cursor: pointer;
+}
+.ico-attach-preview{
+    width:24px;
+    background-image:url(../../images/component/attach_preview.png);
+}
+.ico-attach-download{
+    width: 16px;
+    background-image:url(../../images/component/attach_download.png);
+}
+.ico-attach-remove{
+    width:18px;
+    background-image:url(../../images/component/attach_remove.png);
+}
+
+.webuploader-container {
+    position: relative;
+    display: inline-block;
+    *display: inline;
+    *zoom:1;
+    margin: 10px;
+}
+.webuploader-element-invisible {
+    position: absolute;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px, 1px, 1px, 1px);
+    z-index: 100;
+    filter: alpha(opacity=0);
+    opacity:0;
+    cursor: pointer;
+}
+.webuploader-pick {
+    position: relative;
+    display: inline-block;
+    *display: inline;
+    *zoom:1;
+    height:30px;
+    line-height: 30px;
+    padding: 0 20px;
+    background-color: #fdaa47;
+    border-radius: 3px;
+    overflow: hidden;
+    color: #fff;
+    font-size:14px;
+    text-align: center;
+    cursor: pointer;
+}
+.webuploader-pick-hover {
+    background-color: #FD8F40;
+}
+.webuploader-pick-disable {
+    opacity: 0.6;
+    pointer-events:none;
+}
+
+

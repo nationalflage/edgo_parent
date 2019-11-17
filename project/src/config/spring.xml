@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:jaxws="http://cxf.apache.org/jaxws"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd   
+    http://www.springframework.org/schema/tx   
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd  
+    http://www.springframework.org/schema/context  
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.1.xsd 
+    http://www.springframework.org/schema/mvc 
+    http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+    http://cxf.apache.org/jaxws   
+    http://cxf.apache.org/schemas/jaxws.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<bean id="departExtendService" class="com.hyjx.framework.service.extend.DepartExtendServiceImpl"></bean>
+	<bean id="userExtendService" class="com.hyjx.framework.service.extend.UserExtendServiceImpl"></bean>
+	<!-- 框架Session服务，SessionLocal为本地实现-->
+	<bean id="baseSession" class="com.hyjx.framework.service.session.SessionLocal">
+	</bean>
+
+   <!-- 框架缓存服务，CacheLocal为本地实现--> 
+   <bean id="baseCache" class="com.hyjx.framework.service.cache.SimpleCache">
+   </bean>
+   
+   <!-- 集群模式的缓存服务器 CacheRedis 实现
+   <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig" > 
+     <property name="maxIdle" value="${redis.maxIdle}" /> 
+     <property name="maxTotal" value="${redis.maxTotal}" /> 
+     <property name="maxWaitMillis" value="${redis.MaxWaitMillis}" /> 
+     <property name="testOnBorrow" value="${redis.testOnBorrow}" /> 
+  </bean > 
+  <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" > 
+     <property name="poolConfig" ref="poolConfig" /> 
+     <property name="port" value="${redis.port}" />
+     <property name="hostName" value="${redis.host}" /> 
+     <property name="password" value="${redis.pass}" /> 
+     <property name="timeout" value="100000" ></property> 
+  </bean > 
+  <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" > 
+     <property name="connectionFactory" ref="connectionFactory" /> 
+     <property name="keySerializer" > 
+       <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" /> 
+     </property> 
+     <property name="valueSerializer" > 
+       <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" /> 
+     </property> 
+  </bean > 
+  <bean id="baseCache" class="com.hyjx.framework.service.cache.CacheRedis">
+   		<property name="redisTemplate" ref="redisTemplate" /> 
+   </bean>
+   <bean id="baseSession" class="com.hyjx.framework.service.session.SessionRedis">
+   		<property name="redisTemplate" ref="redisTemplate" />
+   </bean>
+    -->
+   
+   <!-- 下面是webservice服务需要的配置 ，用到时放开注释即可。    cxf必要配置--> 
+   
+<!--     <import resource="classpath:META-INF/cxf/cxf.xml" />  
+ 	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />  
+ 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />  
+  	
+  	<jaxws:endpoint id="interfaceService1" 
+        implementor="com.hyjx.framework.component.interfaceservice.WebserviceinterfaceServiceImpl" 
+        address="/test" > 
+    </jaxws:endpoint> -->
+    
+   <!-- 用到webservice服务时，上面注释放开--> 
+
+<!-- 	<jaxws:endpoint id="interfaceService1" address="/test">
+	<jaxws:implementor>
+		<bean
+			class="com.hyjx.framework.component.interfaceservice.WebserviceinterfaceServiceImpl">
+			<property name="service">
+				<bean class="com.hyjx.framework.component.interfaceservice.InterfaceServiceImpl" >
+					<property name="dao" >
+						 <ref bean="baseDao" />
+					</property>
+				</bean>
+			</property>
+			<property name="service" ref="InterfaceServiceImpl"></property>
+		</bean>
+	</jaxws:implementor>
+</jaxws:endpoint> -->
+
+<!-- 	<jaxws:endpoint id="interfaceService1" address="/test">
+	<jaxws:implementor>
+		<bean
+			class="com.hyjx.framework.component.interfaceservice.WebserviceinterfaceServiceImpl">
+			<property name="service">
+				<bean class="com.hyjx.framework.component.interfaceservice.InterfaceServiceImpl" >
+					<property name="dao" >
+						 <ref bean="baseDao" />
+					</property>
+				</bean>
+			</property>
+			<property name="service" ref="interfaceServiceImpl"></property>
+		</bean>
+	</jaxws:implementor>
+</jaxws:endpoint>
+ -->
+
+    <!-- <jaxws:endpoint id="interfaceService" 
+        implementorClass="com.hyjx.framework.component.interfaceservice.InterfaceController" 
+        address="/interfaceService" />  -->
+     
+ 	 <bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:config/global.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- JDBC ConnectionSource Way-->
+	<!-- <bean id="dataSourceS" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.connection.driver_class}" />
+		<property name="url" value="${jdbc.connection.url}" />
+		<property name="username" value="${jdbc.connection.username}" />
+		<property name="password" value="${jdbc.connection.password}" />
+		<property name="maxActive" value="300" />
+		<property name="maxWait" value="300" />		
+        <property name="removeAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="60"/>
+        <property name="logAbandoned" value="true"/>		
+	</bean> -->
+	<!-- 下面这段多数据源配置，用到多数据源配置时放开 -->
+	
+		<!-- <bean id="dataSourceS" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.connection.driver_class}" />
+		<property name="url" value="${jdbc.connection.url}" />
+		<property name="username" value="${jdbc.connection.username}" />
+		<property name="password" value="${jdbc.connection.password}" />
+		<property name="maxActive" value="300" />
+		<property name="maxWait" value="300" />		
+        <property name="removeAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="60"/>
+        <property name="logAbandoned" value="true"/>		
+	</bean>
+	
+		<bean id="dataSourceInterface" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.connection.driver_class2}" />
+		<property name="url" value="${jdbc.connection.url2}" />
+		<property name="username" value="${jdbc.connection.username2}" />
+		<property name="password" value="${jdbc.connection.password2}" />
+		<property name="maxActive" value="300" />
+		<property name="maxWait" value="300" />		
+        <property name="removeAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="60"/>
+        <property name="logAbandoned" value="true"/>		
+	</bean>
+	
+	JDBC Connection Way  com.spring.dynamic_datasource.DynamicDataSource
+	<bean id="dataSource" class="com.hyjx.framework.component.interfaceservice.DynamicDataSource" >
+		<property name="targetDataSources">  
+           <map key-type="java.lang.String">  
+               <entry value-ref="dataSourceS" key="dataSourceS"></entry>  
+               <entry value-ref="dataSourceInterface" key="dataSourceInterface"></entry>  
+           </map>  
+       </property>  
+       <property name="defaultTargetDataSource" ref="dataSourceS"></property>		
+	</bean> -->
+	<!-- 上面这段多数据源配置，用到多数据源配置时放开 -->
+	
+	<!--！！！ 下面这段动态配置多数据源 -->
+		<bean id="dataSourceS" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.connection.driver_class}" />
+		<property name="url" value="${jdbc.connection.url}" />
+		<property name="username" value="${jdbc.connection.username}" />
+		<property name="password" value="${jdbc.connection.password}" />
+		<property name="maxActive" value="300" />
+		<property name="maxWait" value="300" />		
+        <property name="removeAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="60"/>
+        <property name="logAbandoned" value="true"/>		
+		</bean>
+	
+		<!-- <bean id="dataSourceInterface" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.connection.driver_class2}" />
+		<property name="url" value="${jdbc.connection.url2}" />
+		<property name="username" value="${jdbc.connection.username2}" />
+		<property name="password" value="${jdbc.connection.password2}" />
+		<property name="maxActive" value="300" />
+		<property name="maxWait" value="300" />		
+        <property name="removeAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="60"/>
+        <property name="logAbandoned" value="true"/>		
+		</bean> -->
+		
+		<bean id="dataSource" class="com.hyjx.framework.component.mutidatasource.DynamicDataSource" >
+		<property name="targetDataSources">  
+           <map key-type="java.lang.String">  
+           </map>
+       </property>  
+       <property name="defaultTargetDataSource" ref="dataSourceS"></property>		
+		</bean>
+	<!-- 上面这段动态配置多数据源 -->
+	
+	
+	<!-- JDBC Connection Way-->
+	<!-- 下面这段单数据源配置，只需要一个数据源用到，不用单数据源时注释掉 -->
+	<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.connection.driver_class}" />
+		<property name="url" value="${jdbc.connection.url}" />
+		<property name="username" value="${jdbc.connection.username}" />
+		<property name="password" value="${jdbc.connection.password}" />
+		<property name="maxActive" value="300" />
+		<property name="maxWait" value="300" />		
+        <property name="removeAbandoned" value="true"/>自动中断数据库连接
+        <property name="removeAbandonedTimeout" value="600"/>自动中断数据库连接时间，单位秒
+        <property name="logAbandoned" value="true"/>
+        <property name="validationQuery" value="select VALIDITY from SYS_RIGHT_MENU where VALIDITY = 'Y' "></property>
+        <property name="testWhileIdle" value="true"></property>
+        <property name="testOnBorrow" value="true"></property>
+		        
+		<property name="timeBetweenEvictionRunsMillis" value="3600000"></property>
+        <property name="minEvictableIdleTimeMillis" value="18000000"></property> 
+       
+	</bean> -->
+	<!-- 上面这段单数据源配置，只需要一个数据源用到，不用单数据源时注释掉 -->
+	
+	<!-- 不需要被记录执行sql的数据库操作，使用此对象执行sql ibatis执行的更改数据的sql(insert,update,delete)都被记录 -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="lobHandler"  class="org.springframework.jdbc.support.lob.DefaultLobHandler"/>
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+	  <property name="dataSource">
+	   <ref bean="dataSource" />
+	  </property>
+	  <property name="configLocation" value="classpath:config/ibatis.xml"/>
+	  <property name="mappingLocations" value="classpath*:com/hyjx/**/ibatis*.xml" />
+	  <property name="lobHandler" ref="lobHandler"/>
+ 	</bean>
+    
+    <bean id="sqlExecutor" class="com.hyjx.framework.orm.ibatis.LimitSqlExecutor">
+    	<property name="dialect">
+			<bean class="com.hyjx.framework.orm.ibatis.OracleDialect" /> 
+<!--     	<bean class="com.hyjx.framework.orm.ibatis.MySQLDialect" />-->
+    	</property>
+    </bean>
+ 	<bean id="baseDao" class="com.hyjx.framework.orm.dao.BaseDao">
+        <property name="sqlMapClient" ref="sqlMapClient" />
+        <property name="sqlExecutor" ref="sqlExecutor" />
+    </bean>
+	<!-- 使用Spring事务管理（即局部事务策略，针对单个资源执行事务（主要是针对单个的数据库）） -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!--两个方言 解决分页时多数据源访问的问题-->
+	<bean id="mysqldialect" class="com.hyjx.framework.orm.ibatis.MySQLDialect"></bean>
+    <bean id="oracledialect" class="com.hyjx.framework.orm.ibatis.OracleDialect"></bean>
+
+	<!-- 登录处理服务 -->
+	<bean id="loginService" lazy-init="true" class="com.hyjx.framework.login.LoginServiceImpl"/>
+	<!-- 上传处理服务 -->
+ 	<bean id="uploadService" lazy-init="true" class="com.hyjx.framework.component.upload.UploadServiceImpl">
+ 		<property name="dao" ref="baseDao"></property>
+ 	</bean>
+	<!--
+ 	<bean id="uploadService" lazy-init="true" class="com.hyjx.framework.component.fastdfs.FastDFSServiceImpl"/>
+  	-->
+ 	<!-- 异常捕获器 -->
+	<bean id="exceptionHandler" lazy-init="true" class="com.hyjx.framework.common.HyjxExceptionHandler"/>
+</beans>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="com.hyjx.business.niuhp_study">
+	<typeAlias alias="niuhpmodel" type="com.hyjx.business.niuhp_study.NiuhpModel"/>
+	<typeAlias alias="niuhpdept" type="com.hyjx.business.niuhp_study.NiuhpDept"/>
+    <sql id="niuhpCondition">
+		<isNotEmpty property="name">
+			and NAME like '%$name$%'
+		</isNotEmpty>
+		<isNotEmpty property="sex">
+			and SEX like '%$sex$%'
+		</isNotEmpty>
+		<isNotEmpty property="age">
+			and AGE like '%$age$%'
+		</isNotEmpty>
+		<isNotEmpty property="birthday">
+			and BIRTHDAY like '%$birthday$%'
+		</isNotEmpty>
+		<isNotEmpty property="csdsheng">
+			and CSDSHENG like '%$csdsheng$%'
+		</isNotEmpty>
+		<isNotEmpty property="csdshi">
+			and CSDSHI like '%$csdshi$%'
+		</isNotEmpty>
+		<isNotEmpty property="csdxian">
+			and CSDXIAN like '%$csdxian$%'
+		</isNotEmpty>
+		<isNotEmpty property="csdjdmph">
+			and CSDJDMPH like '%$csdjdmph$%'
+		</isNotEmpty>
+		<isNotEmpty property="bmmc">
+			and BMMC like '%$bmmc$%'
+		</isNotEmpty>
+		<isNotEmpty property="ah">
+			and AH like '%$ah$%'
+		</isNotEmpty>
+		<isNotEmpty property="sfyx">
+			and SFYX like '%$sfyx$%'
+		</isNotEmpty>
+		<isNotEmpty property="cjrxm">
+			and CJRXM like '%$cjrxm$%'
+		</isNotEmpty>
+		<isNotEmpty property="cjrbmmc">
+			and CJRBMMC like '%$cjrbmmc$%'
+		</isNotEmpty>
+	</sql>
+	<select id="queryList" parameterClass="niuhpmodel" resultClass="niuhpmodel">
+		select
+			ID as id,
+			NAME as name,
+			SEX as sex,
+			AGE as age,
+			BIRTHDAY as birthday,
+			CSDSHENG as csdsheng,
+			CSDSHI as csdshi,
+			CSDXIAN as csdxian,
+			CSDJDMPH as csdjdmph,
+			BMID as bmid,
+			BMMC as bmmc,
+			AH as ah,
+			SFYX as sfyx,
+			CJRID as cjrid,
+			CJRXM as cjrxm,
+			CJRBMID as cjrbmid,
+			CJRBMMC as cjrbmmc
+		from 
+			NIUHP_STUDY where 1=1
+        <include refid="niuhpCondition" />
+	</select>
+	<select id="queryCount" parameterClass="niuhpmodel" resultClass="java.lang.String">
+		select 
+			count(1) as id
+		from 
+			NIUHP_STUDY  where 1=1
+        <include refid="niuhpCondition" />
+	</select>
+	<insert id="insert" parameterClass="niuhpmodel">
+		insert into NIUHP_STUDY  (
+			ID,
+			NAME,
+			SEX,
+			AGE,
+			BIRTHDAY,
+			CSDSHENG,
+			CSDSHI,
+			CSDXIAN,
+			CSDJDMPH,
+			BMID,
+			BMMC,
+			AH,
+			SFYX,
+			CJRID,
+			CJRXM,
+			CJRBMID,
+			CJRBMMC
+		)values(
+			#id#,
+			#name#,
+			#sex#,
+			#age#,
+			#birthday#,
+			#csdsheng#,
+			#csdshi#,
+			#csdxian#,
+			#csdjdmph#,
+			#bmid#,
+			#bmmc#,
+			#ah#,
+			#sfyx#,
+			#cjrid#,
+			#cjrxm#,
+			#cjrbmid#,
+			#cjrbmmc#
+		)
+	</insert>
+	<update id="update" parameterClass="niuhpmodel">
+		update NIUHP_STUDY 
+		set
+			ID = #id#,
+			NAME = #name#,
+			SEX = #sex#,
+			AGE = #age#,
+			BIRTHDAY = #birthday#,
+			CSDSHENG = #csdsheng#,
+			CSDSHI = #csdshi#,
+			CSDXIAN = #csdxian#,
+			CSDJDMPH = #csdjdmph#,
+			BMID = #bmid#,
+			BMMC = #bmmc#,
+			AH = #ah#,
+			SFYX = #sfyx#,
+			CJRID = #cjrid#,
+			CJRXM = #cjrxm#,
+			CJRBMID = #cjrbmid#,
+			CJRBMMC = #cjrbmmc#
+		where 1=1
+				and ID = #id#
+	</update>
+	<select id="getInfoById" parameterClass="niuhpmodel" resultClass="niuhpmodel">
+		select
+			ID as id,
+			NAME as name,
+			SEX as sex,
+			AGE as age,
+			BIRTHDAY as birthday,
+			CSDSHENG as csdsheng,
+			CSDSHI as csdshi,
+			CSDXIAN as csdxian,
+			CSDJDMPH as csdjdmph,
+			BMID as bmid,
+			BMMC as bmmc,
+			AH as ah,
+			SFYX as sfyx,
+			CJRID as cjrid,
+			CJRXM as cjrxm,
+			CJRBMID as cjrbmid,
+			CJRBMMC as cjrbmmc
+		from 
+			NIUHP_STUDY
+		where 1=1
+            and ID = #id#
+	</select>
+	<delete id="delete" parameterClass="niuhpmodel">
+		delete from niuhp_study 
+		where 1=1
+            and ID = #id#
+	</delete>
+	<!-- 查询部门-->
+	<select id="queryDeptParent1"  parameterClass="java.lang.String"  resultClass="niuhpdept" >
+			select  
+					CODE as code,
+					NAME as name,
+					PARENTCODE as parentcode,
+					ORDERID as orderid,
+					CODETABLE as codetable,
+					VALIDFAG as validfag
+			from  PUB_CODETABLE 
+			where CODE=#code#
+	</select>
+	<select id="queryDeptChildren2"  parameterClass="java.lang.String"  resultClass="niuhpdept" >
+			select  
+					CODE as code,
+					NAME as name,
+					PARENTCODE as parentcode,
+					ORDERID as orderid,
+					CODETABLE as codetable,
+					VALIDFAG as validfag
+			from  PUB_CODETABLE 
+			where CODE=#parentcode#
+	</select>
+</sqlMap>

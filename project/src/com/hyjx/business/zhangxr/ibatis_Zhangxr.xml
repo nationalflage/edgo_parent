@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="com.hyjx.business.zhangxr">
+    <typeAlias alias="zhangxrmodel" type="com.hyjx.business.zhangxr.ZhangxrModel"/>
+    <sql id="zhangxrCondition">
+        <isNotEmpty property="name">
+            and instr(name,#name#)>0
+        </isNotEmpty>
+        <isNotEmpty property="sex">
+            and instr(sex,#sex#)>0
+        </isNotEmpty>
+        <isNotEmpty property="age">
+            and instr(age,#age#)>0
+        </isNotEmpty>
+        <isNotEmpty property="birthday">
+            and instr(birthday,#birthday#)>0
+        </isNotEmpty>
+        <isNotEmpty property="csdsheng">
+            and instr(csdsheng,#csdsheng#)>0
+        </isNotEmpty>
+        <isNotEmpty property="csdshi">
+            and instr(csdshi,#csdshi#)>0
+        </isNotEmpty>
+        <isNotEmpty property="csdxian">
+            and instr(csdxian,#csdxian#)>0
+        </isNotEmpty>
+        <isNotEmpty property="csdjdmph">
+            and instr(csdjdmph,#csdjdmph#)>0
+        </isNotEmpty>
+        <isNotEmpty property="bmmc">
+            and instr(bmmc,#bmmc#)>0
+        </isNotEmpty>
+        <isNotEmpty property="ah">
+            and instr(ah,#ah#)>0
+        </isNotEmpty>
+        <isNotEmpty property="sfyx">
+            and instr(sfyx,#sfyx#)>0
+        </isNotEmpty>
+        <isNotEmpty property="cjrxm">
+            and instr(cjrxm,#cjrxm#)>0
+        </isNotEmpty>
+        <isNotEmpty property="cjrbmmc">
+            and instr(cjrbmmc,#cjrbmmc#)>0
+        </isNotEmpty>
+        <isNotEmpty property="scly">
+            and instr(scly,#scly#)>0
+        </isNotEmpty>
+    </sql>
+
+    <select id="queryList" parameterClass="zhangxrmodel" resultClass="zhangxrmodel">
+        select
+        ID as id,
+        NAME as name,
+        SEX as sex,
+        AGE as age,
+        BIRTHDAY as birthday,
+        CSDSHENG as csdsheng,
+        CSDSHI as csdshi,
+        CSDXIAN as csdxian,
+        CSDJDMPH as csdjdmph,
+        BMID as bmid,
+        BMMC as bmmc,
+        AH as ah,
+        SCLY as scly,
+        SFYX as sfyx,
+        CJRID as cjrid,
+        CJRXM as cjrxm,
+        CJRBMID as cjrbmid,
+        CJRBMMC as cjrbmmc
+        from
+        ZHANGXR_STUDY
+        where 1=1
+        <include refid="zhangxrCondition"/>
+    </select>
+    <select id="queryCount" parameterClass="zhangxrmodel" resultClass="java.lang.String">
+        select
+        count(1) as id
+        from
+        ZHANGXR_STUDY
+        where 1=1
+        <include refid="zhangxrCondition"/>
+    </select>
+    <insert id="insert" parameterClass="zhangxrmodel">
+        insert into ZHANGXR_STUDY(
+            ID,
+            NAME,
+            SEX,
+            AGE,
+            BIRTHDAY,
+            CSDSHENG,
+            CSDSHI,
+            CSDXIAN,
+            CSDJDMPH,
+            BMID,
+            BMMC,
+            AH,
+            SCLY,
+            SFYX,
+            CJRID,
+            CJRXM,
+            CJRBMID,
+            CJRBMMC
+        )values (
+            #id#,
+            #name#,
+            #sex#,
+            #age#,
+            #birthday#,
+            #csdsheng#,
+            #csdshi#,
+            #csdxian#,
+            #csdjdmph#,
+            #bmid#,
+            #bmmc#,
+            #ah#,
+            #scly#,
+            #sfyx#,
+            #cjrid#,
+            #cjrxm#,
+            #cjrbmid#,
+            #cjrbmmc#
+        )
+    </insert>
+    <update id="update" parameterClass="zhangxrmodel">
+        update ZHANGXR_STUDY
+        set
+			ID = #id#,
+			NAME = #name#,
+			SEX = #sex#,
+			AGE = #age#,
+			BIRTHDAY = #birthday#,
+			CSDSHENG = #csdsheng#,
+			CSDSHI = #csdshi#,
+			CSDXIAN = #csdxian#,
+			CSDJDMPH = #csdjdmph#,
+			BMID = #bmid#,
+			BMMC = #bmmc#,
+			AH = #ah#,
+			SCLY = #scly#,
+			SFYX = #sfyx#,
+			CJRID = #cjrid#,
+			CJRXM = #cjrxm#,
+			CJRBMID = #cjrbmid#,
+			CJRBMMC = #cjrbmmc#
+		 where 1=1 and ID = #id#
+    </update>
+    <select id="getInfoById" parameterClass="zhangxrmodel" resultClass="zhangxrmodel">
+		select
+			ID as id,
+			NAME as name,
+			SEX as sex,
+			AGE as age,
+			BIRTHDAY as birthday,
+			CSDSHENG as csdsheng,
+			CSDSHI as csdshi,
+			CSDXIAN as csdxian,
+			CSDJDMPH as csdjdmph,
+			BMID as bmid,
+			BMMC as bmmc,
+			AH as ah,
+			SCLY as scly,
+			SFYX as sfyx,
+			CJRID as cjrid,
+			CJRXM as cjrxm,
+			CJRBMID as cjrbmid,
+			CJRBMMC as cjrbmmc
+		from
+			ZHANGXR_STUDY
+		where 1=1
+            and ID = #id#
+	</select>
+    <delete id="delete" parameterClass="zhangxrmodel">
+        delete from ZHANGXR_STUDY
+        where ID = #id# and 1=1
+    </delete>
+</sqlMap>

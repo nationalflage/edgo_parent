@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="com.hyjx.business.bounddata">
+	<typeAlias alias="bounddatamodel" type="com.hyjx.business.bounddata.BoundDataModel"/>
+    <sql id="bounddataCondition">
+		<isNotEmpty property="name">
+			and NAME like '%$name$%'
+		</isNotEmpty>
+		<isNotEmpty property="boundary">
+			and BOUNDARY like '%$boundary$%'
+		</isNotEmpty>
+		<isNotEmpty property="datetime">
+			and DATETIME like '%$datetime$%'
+		</isNotEmpty>
+		<isNotEmpty property="type">
+			and TYPE like '%$type$%'
+		</isNotEmpty>
+		<isNotEmpty property="innerBoundary">
+			and INNER_BOUNDARY like '%$innerBoundary$%'
+		</isNotEmpty>
+		<isNotEmpty property="centerLng">
+			and CENTER_LNG like '%$centerLng$%'
+		</isNotEmpty>
+		<isNotEmpty property="centerLat">
+			and CENTER_LAT like '%$centerLat$%'
+		</isNotEmpty>
+		<isNotEmpty property="airgeion">
+			and AIRGEION like '%$airgeion$%'
+		</isNotEmpty>
+		<isNotEmpty property="airmc">
+			and AIRMC like '%$airmc$%'
+		</isNotEmpty>
+		<isNotEmpty property="town">
+			and TOWN like '%$town$%'
+		</isNotEmpty>
+		<isNotEmpty property="townmc">
+			and TOWNMC like '%$townmc$%'
+		</isNotEmpty>
+		<isNotEmpty property="lng">
+			and LNG like '%$lng$%'
+		</isNotEmpty>
+		<isNotEmpty property="lat">
+			and LAT like '%$lat$%'
+		</isNotEmpty>
+		<isNotEmpty property="business">
+			and BUSINESS like '%$business$%'
+		</isNotEmpty>
+	</sql>
+	<select id="queryList" parameterClass="bounddatamodel" resultClass="bounddatamodel">
+		select
+			ID as id,
+			MAINID as mainid,
+			PID as pid,
+			NAME as name,
+			BOUNDARY as boundary,
+			DATETIME as datetime,
+			TYPE as type,
+			INNER_BOUNDARY as innerBoundary,
+			CENTER_LNG as centerLng,
+			CENTER_LAT as centerLat,
+			AIRGEION as airgeion,
+			AIRMC as airmc,
+			TOWN as town,
+			TOWNMC as townmc,
+			LNG as lng,
+			LAT as lat,
+			BUSINESS as business
+		from 
+			GIS_BOUND_DATA where 1=1
+		<include refid="bounddataCondition" />
+	</select>
+	<select id="queryCount" parameterClass="bounddatamodel" resultClass="java.lang.String">
+		select 
+			count(1) as id
+		from 
+			GIS_BOUND_DATA  where 1=1
+        <include refid="bounddataCondition" />
+	</select>
+	<insert id="insert" parameterClass="bounddatamodel">
+		insert into GIS_BOUND_DATA  (
+			ID,
+			MAINID,
+			PID,
+			NAME,
+			BOUNDARY,
+			DATETIME,
+			TYPE,
+			INNER_BOUNDARY,
+			CENTER_LNG,
+			CENTER_LAT,
+			AIRGEION,
+			AIRMC,
+			TOWN,
+			TOWNMC,
+			LNG,
+			LAT,
+			BUSINESS
+		)values(
+			#id#,
+			#mainid#,
+			#pid#,
+			#name#,
+			#boundary#,
+			#datetime#,
+			#type#,
+			#innerBoundary#,
+			#centerLng#,
+			#centerLat#,
+			#airgeion#,
+			#airmc#,
+			#town#,
+			#townmc#,
+			#lng#,
+			#lat#,
+			#business#
+		)
+	</insert>
+	<update id="update" parameterClass="bounddatamodel">
+		update GIS_BOUND_DATA 
+		set
+			ID = #id#,
+			MAINID = #mainid#,
+			PID = #pid#,
+			NAME = #name#,
+			BOUNDARY = #boundary#,
+			DATETIME = #datetime#,
+			TYPE = #type#,
+			INNER_BOUNDARY = #innerBoundary#,
+			CENTER_LNG = #centerLng#,
+			CENTER_LAT = #centerLat#,
+			AIRGEION = #airgeion#,
+			AIRMC = #airmc#,
+			TOWN = #town#,
+			TOWNMC = #townmc#,
+			LNG = #lng#,
+			LAT = #lat#,
+			BUSINESS = #business#
+		where 1=1
+				and ID = #id#
+	</update>
+	<select id="getInfoById" parameterClass="bounddatamodel" resultClass="bounddatamodel">
+		select
+			ID as id,
+			MAINID as mainid,
+			PID as pid,
+			NAME as name,
+			BOUNDARY as boundary,
+			DATETIME as datetime,
+			TYPE as type,
+			INNER_BOUNDARY as innerBoundary,
+			CENTER_LNG as centerLng,
+			CENTER_LAT as centerLat,
+			AIRGEION as airgeion,
+			AIRMC as airmc,
+			TOWN as town,
+			TOWNMC as townmc,
+			LNG as lng,
+			LAT as lat,
+			BUSINESS as business
+		from 
+			GIS_BOUND_DATA
+		where 1=1
+            and ID = #id#
+	</select>
+	<delete id="delete" parameterClass="bounddatamodel">
+		delete from GIS_BOUND_DATA 
+		where 1=1
+            and ID = #id#
+	</delete>
+</sqlMap>

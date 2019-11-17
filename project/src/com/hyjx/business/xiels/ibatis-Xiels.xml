@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="com.hyjx.business.xiels">
+    <typeAlias alias="xielsModel" type="com.hyjx.business.xiels.XielsModel"/>
+    <sql id="xielsCondition">
+        <isNotEmpty property="name">
+            and NAME like '%$name$%'
+        </isNotEmpty>
+        <isNotEmpty property="sex">
+            and SEX like '%$sex$%'
+        </isNotEmpty>
+        <isNotEmpty property="age">
+            and AGE like '%$age$%'
+        </isNotEmpty>
+        <isNotEmpty property="beginage">
+            and AGE >= $beginage$
+        </isNotEmpty>
+        <isNotEmpty property="endage">
+            and AGE &lt;= $endage$
+        </isNotEmpty>
+        <isNotEmpty property="begin_bir">
+            and birthday >= '$begin_bir$'
+        </isNotEmpty>
+        <isNotEmpty property="end_bir">
+            and birthday &lt;= '$end_bir$'
+        </isNotEmpty>
+        <isNotEmpty property="birthday">
+            and BIRTHDAY like '%$birthday$%'
+        </isNotEmpty>
+        <isNotEmpty property="csdsheng">
+            and CSDSHENG like '%$csdsheng$%'
+        </isNotEmpty>
+        <isNotEmpty property="csdshi">
+            and CSDSHI like '%$csdshi$%'
+        </isNotEmpty>
+        <isNotEmpty property="csdxian">
+            and CSDXIAN like '%$csdxian$%'
+        </isNotEmpty>
+        <isNotEmpty property="csdjdmph">
+            and CSDJDMPH like '%$csdjdmph$%'
+        </isNotEmpty>
+        <isNotEmpty property="bmmc">
+            and BMMC like '%$bmmc$%'
+        </isNotEmpty>
+        <isNotEmpty property="ah">
+            and AH like '%$ah$%'
+        </isNotEmpty>
+        <isNotEmpty property="sfyx">
+            and SFYX like '%$sfyx$%'
+        </isNotEmpty>
+        <isNotEmpty property="cjrxm">
+            and CJRXM like '%$cjrxm$%'
+        </isNotEmpty>
+        <isNotEmpty property="cjrbmmc">
+            and CJRBMMC like '%$cjrbmmc$%'
+        </isNotEmpty>
+    </sql>
+    <select id="queryList" resultClass="xielsModel" parameterClass="xielsModel">
+        select
+        ID as id,
+        NAME as name,
+        SEX as sex,
+        AGE as age,
+        BIRTHDAY as birthday,
+        CSDSHENG as csdsheng,
+        CSDSHI as csdshi,
+        CSDXIAN as csdxian,
+        CSDJDMPH as csdjdmph,
+        BMID as bmid,
+        BMMC as bmmc,
+        AH as ah,
+        SFYX as sfyx,
+        CJRID as cjrid,
+        CJRXM as cjrxm,
+        CJRBMID as cjrbmid,
+        CJRBMMC as cjrbmmc,
+        SCLY as scly
+        from XIELS_STUDY
+        where 1=1
+        <include refid="xielsCondition" />
+        <!--select *  from xiels_study where 1=1 <include refid="xielsCondition" />-->
+    </select>
+    <select id="queryCount" parameterClass="xielsModel" resultClass="String">
+        select count(1)
+        from xiels_study
+        where 1=1
+        <include refid="xielsCondition" />
+    </select>
+    <delete id="delete" parameterClass="xielsModel">
+        delete from xiels_study where 1=1 and ID=#id#
+    </delete>
+    <insert id="insert" parameterClass="xielsModel">
+        insert  into xiels_study(
+        id,
+        name,
+        sex,
+        age,
+        birthday,
+        csdsheng,
+        csdshi,
+        csdxian,
+        csdjdmph,
+        bmid,
+        bmmc,
+        ah,
+        sfyx,
+        cjrid,
+        cjrxm,
+        cjrbmid,
+        cjrbmmc,
+        scly
+        ) values (
+        #id#,
+        #name#,
+        #sex#,
+        #age#,
+        #birthday#,
+        #csdsheng#,
+        #csdshi#,
+        #csdxian#,
+        #csdjdmph#,
+        #bmid#,
+        #bmmc#,
+        #ah#,
+        #sfyx#,
+        #cjrid#,
+        #cjrxm#,
+        #cjrbmid#,
+        #cjrbmmc#,
+        #scly#
+        )
+    </insert>
+    <select id="getInfoById" parameterClass="xielsModel" resultClass="xielsModel">
+        select * from xiels_study where id=#id#
+    </select>
+    <update id="update" parameterClass="xielsModel">
+        update xiels_study set
+        name = #name#,
+        sex = #sex#,
+        age = #age#,
+        birthday =#birthday#,
+        csdsheng = #csdsheng#,
+        csdshi =#csdshi#,
+        csdxian =#csdxian#,
+        csdjdmph = #csdjdmph#,
+        bmid = #bmid#,
+        bmmc = #bmmc# ,
+        ah = #ah#,
+        sfyx = #sfyx#,
+        cjrid = #cjrid#,
+        cjrxm = #cjrxm#,
+        cjrbmid = #cjrbmid#,
+        cjrbmmc = #cjrbmmc#,
+        scly=#scly#
+        where id = #id#
+    </update>
+</sqlMap>
